@@ -1,2 +1,5 @@
+v0.1.1
+- Added updating SAH when packages update
+
 v0.1
 - Release on GitHub
