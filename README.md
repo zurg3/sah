@@ -1,7 +1,9 @@
 # Simple AUR Helper (SAH)
 
 **Author:** zurg3 (Stepan Skryabin)
+
 **Created:** 12.02.2019
+
 **License:** GNU GPL v3
 
 ## Dependencies:
