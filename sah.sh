@@ -164,7 +164,7 @@ sah -Syu
 Update installed packages (Pacman + AUR) and remove make dependencies of updated AUR packages
 sah -Syu --rmd
 
-Cleaning the package cache
+Clean the package cache
 sah -Sc
 
 Remove package/packages
