@@ -94,16 +94,26 @@ elif [[ $1 == "-Syu" ]]; then
       fi
     # Exceptions
     elif [[ $check_pkg == "sah" ]]; then
-      echo "$update_message"
-      git clone https://github.com/zurg3/$check_pkg.git
-      cd $check_pkg
-      if [[ $2 != "--rmd" ]]; then
-        makepkg -si --skippgpcheck
-      elif [[ $2 == "--rmd" ]]; then
-        makepkg -sir --skippgpcheck
+      wget -q "https://raw.githubusercontent.com/zurg3/$check_pkg/master/PKGBUILD" -O $PKGBUILDs_path/$check_pkg.txt
+
+      version_main=$(cat /tmp/PKGBUILDs/$check_pkg.txt | grep "pkgver" | head -n 1 | awk -F "=" '{print $2}')
+      version_patch=$(cat /tmp/PKGBUILDs/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
+      version_full="$version_main-$version_patch"
+
+      if [[ $check_pkg_v == $version_full ]]; then
+        echo "$latest_version_message"
+      elif [[ $check_pkg_v != $version_full ]]; then
+        echo "$update_message"
+        git clone https://github.com/zurg3/$check_pkg.git
+        cd $check_pkg
+        if [[ $2 != "--rmd" ]]; then
+          makepkg -si --skippgpcheck
+        elif [[ $2 == "--rmd" ]]; then
+          makepkg -sir --skippgpcheck
+        fi
+        cd ..
+        rm -rf $check_pkg
       fi
-      cd ..
-      rm -rf $check_pkg
     fi
   done
   rm $pkg_list_path
