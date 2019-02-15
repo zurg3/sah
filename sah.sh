@@ -94,7 +94,16 @@ elif [[ $1 == "-Syu" ]]; then
       fi
     # Exceptions
     elif [[ $check_pkg == "sah" ]]; then
-      echo "$latest_version_message"
+      echo "$update_message"
+      git clone https://github.com/zurg3/$check_pkg.git
+      cd $check_pkg
+      if [[ $2 != "--rmd" ]]; then
+        makepkg -si --skippgpcheck
+      elif [[ $2 == "--rmd" ]]; then
+        makepkg -sir --skippgpcheck
+      fi
+      cd ..
+      rm -rf $check_pkg
     fi
   done
   rm $pkg_list_path
