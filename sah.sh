@@ -119,6 +119,8 @@ elif [[ $1 == "-Syu" ]]; then
   rm $pkg_list_path
   rm $pkg_list_path_v
   rm -rf $PKGBUILDs_path
+elif [[ $1 == "-Sc" ]]; then
+  sudo pacman -Sc
 elif [[ $1 == "-R" ]]; then
   sudo pacman -R ${@:2}
 elif [[ $1 == "-Qe" ]]; then
@@ -161,6 +163,9 @@ sah -Syu
 
 Update installed packages (Pacman + AUR) and remove make dependencies of updated AUR packages
 sah -Syu --rmd
+
+Cleaning the package cache
+sah -Sc
 
 Remove package/packages
 sah -R [package1] [package2] ...
