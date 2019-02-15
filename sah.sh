@@ -3,8 +3,8 @@
 ### Simple AUR Helper (SAH)
 VERSION="0.1.2"
 
-pkg_list_path="/home/$USER/.ami_pkg_list"
-pkg_list_path_v="/home/$USER/.ami_pkg_list_v"
+pkg_list_path="/home/$USER/.sah_pkg_list"
+pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
 
 if [[ $1 == "-S" ]]; then
