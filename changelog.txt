@@ -1,3 +1,6 @@
+v0.1.2
+- Fixed updating SAH when installed latest SAH version
+
 v0.1.1
 - Added updating SAH when packages update
 
