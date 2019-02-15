@@ -15,43 +15,52 @@
 - wget
 - grep
 
+## Installation:
+```
+$ git clone https://github.com/zurg3/sah.git
+$ cd sah
+$ makepkg -si
+$ cd ..
+$ rm -rf sah
+```
+
 ## Examples:
 Install package/packages from AUR
 ```
-sah -S [package1] [package2] ...
+$ sah -S [package1] [package2] ...
 ```
 
 Install package/packages from AUR and remove make dependencies
 ```
-sah -S [package1] [package2] ... --rmd
+$ sah -S [package1] [package2] ... --rmd
 ```
 
 Install package/packages from Pacman
 ```
-sah -Sp [package1] [package2] ...
+$ sah -Sp [package1] [package2] ...
 ```
 
 Update installed packages (Pacman + AUR)
 ```
-sah -Syu
+$ sah -Syu
 ```
 
 Update installed packages (Pacman + AUR) and remove make dependencies of updated AUR packages
 ```
-sah -Syu --rmd
+$ sah -Syu --rmd
 ```
 
 Remove package/packages
 ```
-sah -R [package1] [package2] ...
+$ sah -R [package1] [package2] ...
 ```
 
 Show installed packages (All)
 ```
-sah -Qe
+$ sah -Qe
 ```
 
 Show installed packages (AUR)
 ```
-sah -Qm
+$ sah -Qm
 ```
