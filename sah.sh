@@ -6,14 +6,17 @@ VERSION="0.1.2"
 pkg_list_path="/home/$USER/.sah_pkg_list"
 pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
+# Remove make dependencies
+if [[ ${@: -1} != "--rmd" ]]; then
+  makepkg_type="-si --skippgpcheck"
+elif [[ ${@: -1} == "--rmd" ]]; then
+  makepkg_type="-sir --skippgpcheck"
+fi
 
 if [[ $1 == "-S" ]]; then
-  # Remove make dependencies
   if [[ ${@: -1} != "--rmd" ]]; then
-    makepkg_type="-si --skippgpcheck"
     aur_pkg_range="${@:2}"
   elif [[ ${@: -1} == "--rmd" ]]; then
-    makepkg_type="-sir --skippgpcheck"
     aur_pkg_range="${@:2:$#-2}"
   fi
 
@@ -51,66 +54,43 @@ elif [[ $1 == "-Syu" ]]; then
     latest_version_message="-> $check_pkg - you have the latest version."
     update_message="Updating $check_pkg..."
 
+    # Exceptions
     if [[ $check_pkg != "sah" ]]; then
-      wget -q "https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$check_pkg" -O $PKGBUILDs_path/$check_pkg.txt
+      wget_link="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$check_pkg"
+      git_clone_link="https://aur.archlinux.org/$check_pkg.git"
+    elif [[ $check_pkg == "sah" ]]; then
+      wget_link="https://raw.githubusercontent.com/zurg3/$check_pkg/master/PKGBUILD"
+      git_clone_link="https://github.com/zurg3/$check_pkg.git"
+    fi
 
-      version_main=$(cat /tmp/PKGBUILDs/$check_pkg.txt | grep "pkgver" | head -n 1 | awk -F "=" '{print $2}')
-      version_patch=$(cat /tmp/PKGBUILDs/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
-      version_full="$version_main-$version_patch"
+    wget -q $wget_link -O $PKGBUILDs_path/$check_pkg.txt
 
-      if [[ $check_pkg_v == $version_full ]]; then
-        echo "$latest_version_message"
-      elif [[ $check_pkg_v != $version_full ]]; then
-        # Version from PKGBUILD may has the single quotes.
-        echo "$version_full" | grep -q "'"
-        if [[ $? == "0" ]]; then
-          pkgver_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $1}')
-          pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
-          check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
-          if [[ $check_pkg_v_sq != $version_full ]]; then
-            echo "$update_message"
-            git clone https://aur.archlinux.org/$check_pkg.git
-            cd $check_pkg
-            if [[ $2 != "--rmd" ]]; then
-              makepkg -si --skippgpcheck
-            elif [[ $2 == "--rmd" ]]; then
-              makepkg -sir --skippgpcheck
-            fi
-            cd ..
-            rm -rf $check_pkg
-          fi
-        elif [[ $? == "1" ]]; then
+    version_main=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgver" | head -n 1 | awk -F "=" '{print $2}')
+    version_patch=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
+    version_full="$version_main-$version_patch"
+
+    if [[ $check_pkg_v == $version_full ]]; then
+      echo "$latest_version_message"
+    elif [[ $check_pkg_v != $version_full ]]; then
+      # Version from PKGBUILD may has the single quotes.
+      echo "$version_full" | grep -q "'"
+      if [[ $? == "0" ]]; then
+        pkgver_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $1}')
+        pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
+        check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
+        if [[ $check_pkg_v_sq != $version_full ]]; then
           echo "$update_message"
-          git clone https://aur.archlinux.org/$check_pkg.git
+          git clone $git_clone_link
           cd $check_pkg
-          if [[ $2 != "--rmd" ]]; then
-            makepkg -si --skippgpcheck
-          elif [[ $2 == "--rmd" ]]; then
-            makepkg -sir --skippgpcheck
-          fi
+          makepkg $makepkg_type
           cd ..
           rm -rf $check_pkg
         fi
-      fi
-    # Exceptions
-    elif [[ $check_pkg == "sah" ]]; then
-      wget -q "https://raw.githubusercontent.com/zurg3/$check_pkg/master/PKGBUILD" -O $PKGBUILDs_path/$check_pkg.txt
-
-      version_main=$(cat /tmp/PKGBUILDs/$check_pkg.txt | grep "pkgver" | head -n 1 | awk -F "=" '{print $2}')
-      version_patch=$(cat /tmp/PKGBUILDs/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
-      version_full="$version_main-$version_patch"
-
-      if [[ $check_pkg_v == $version_full ]]; then
-        echo "$latest_version_message"
-      elif [[ $check_pkg_v != $version_full ]]; then
+      elif [[ $? == "1" ]]; then
         echo "$update_message"
-        git clone https://github.com/zurg3/$check_pkg.git
+        git clone $git_clone_link
         cd $check_pkg
-        if [[ $2 != "--rmd" ]]; then
-          makepkg -si --skippgpcheck
-        elif [[ $2 == "--rmd" ]]; then
-          makepkg -sir --skippgpcheck
-        fi
+        makepkg $makepkg_type
         cd ..
         rm -rf $check_pkg
       fi
