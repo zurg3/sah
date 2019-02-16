@@ -1,3 +1,8 @@
+v0.2
+- Changed paths to files containing lists of installed AUR packages
+- Added a feature to clean the package cache
+- Code optimization
+
 v0.1.2
 - Fixed updating SAH when installed latest SAH version
 
