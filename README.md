@@ -74,3 +74,13 @@ Show installed packages (AUR)
 ```
 $ sah -Qm
 ```
+
+Search for packages in the database
+```
+sah -Ss
+```
+
+Search for already installed packages
+```
+sah -Qs
+```
