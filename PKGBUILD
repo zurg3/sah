@@ -1,6 +1,6 @@
 # Maintainer: zurg3 <https://t.me/zurg3channel>
 pkgname=sah
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc="Simple AUR Helper (SAH)"
 arch=('any')

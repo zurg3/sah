@@ -1,3 +1,11 @@
+v0.3
+- New features:
+  - Remove packages with their dependencies
+  - Search for packages
+  - Show information about packages
+  - Show all packages no longer required as dependencies
+- SAH info shows via less
+
 v0.2
 - Changed paths to files containing lists of installed AUR packages
 - Added a feature to clean the package cache
