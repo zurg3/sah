@@ -170,10 +170,10 @@ Show installed packages (AUR)
 sah -Qm
 
 Search for packages in the database
-sah -Ss
+sah -Ss [package]
 
 Search for already installed packages
-sah -Qs
+sah -Qs [package]
 
 Show information about package
 sah -Si [package]
