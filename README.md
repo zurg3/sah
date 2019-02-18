@@ -94,3 +94,8 @@ Show information about package (for locally installed packages)
 ```
 sah -Qi [package]
 ```
+
+Show all packages no longer required as dependencies (orphans)
+```
+sah -Qdt
+```
