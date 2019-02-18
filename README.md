@@ -14,6 +14,7 @@
 - git
 - wget
 - grep
+- less
 
 ## Installation:
 ```

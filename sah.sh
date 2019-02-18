@@ -139,6 +139,7 @@ Dependencies:
 - git
 - wget
 - grep
+- less
 
 Examples:
 Install package/packages from AUR
@@ -184,7 +185,7 @@ Show information about package (for locally installed packages)
 sah -Qi [package]
 
 Show all packages no longer required as dependencies (orphans)
-sah -Qdt"
+sah -Qdt" | less
 else
   echo "Something is wrong!"
 fi
