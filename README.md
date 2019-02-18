@@ -7,14 +7,14 @@
 **License:** GNU GPL v3
 
 ## Dependencies:
-- bash
-- sudo
-- pacman
-- coreutils
-- git
-- wget
-- grep
-- less
+- [bash](https://www.archlinux.org/packages/core/x86_64/bash/)
+- [sudo](https://www.archlinux.org/packages/core/x86_64/sudo/)
+- [pacman](https://www.archlinux.org/packages/core/x86_64/pacman/)
+- [coreutils](https://www.archlinux.org/packages/core/x86_64/coreutils/)
+- [git](https://www.archlinux.org/packages/extra/x86_64/git/)
+- [wget](https://www.archlinux.org/packages/extra/x86_64/wget/)
+- [grep](https://www.archlinux.org/packages/core/x86_64/grep/)
+- [less](https://www.archlinux.org/packages/core/x86_64/less/)
 
 ## Installation:
 ```
