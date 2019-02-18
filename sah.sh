@@ -115,6 +115,10 @@ elif [[ $1 == "-Ss" ]]; then
   pacman -Ss $2
 elif [[ $1 == "-Qs" ]]; then
   pacman -Qs $2
+elif [[ $1 == "-Si" ]]; then
+  pacman -Si $2
+elif [[ $1 == "-Qi" ]]; then
+  pacman -Qi $2
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) v$VERSION"
 elif [[ $1 == "" || $1 == "--help" || $1 == "-h" ]]; then
@@ -169,7 +173,13 @@ Search for packages in the database
 sah -Ss
 
 Search for already installed packages
-sah -Qs"
+sah -Qs
+
+Show information about package
+sah -Si [package]
+
+Show information about package (for locally installed packages)
+sah -Qi [package]"
 else
   echo "Something is wrong!"
 fi

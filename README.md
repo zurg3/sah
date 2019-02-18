@@ -84,3 +84,13 @@ Search for already installed packages
 ```
 sah -Qs
 ```
+
+Show information about package
+```
+sah -Si [package]
+```
+
+Show information about package (for locally installed packages)
+```
+sah -Qi [package]
+```
