@@ -103,6 +103,8 @@ elif [[ $1 == "-Sc" ]]; then
   sudo pacman -Sc
 elif [[ $1 == "-R" ]]; then
   sudo pacman -R ${@:2}
+elif [[ $1 == "-Rs" ]]; then
+  sudo pacman -Rs ${@:2}
 elif [[ $1 == "-Qe" ]]; then
   echo "Installed packages (All):"
   pacman -Qe
@@ -149,6 +151,9 @@ sah -Sc
 
 Remove package/packages
 sah -R [package1] [package2] ...
+
+Remove package/packages with dependencies which aren't required by any other installed packages
+sah -Rs [package1] [package2] ...
 
 Show installed packages (All)
 sah -Qe

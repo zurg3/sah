@@ -60,6 +60,11 @@ Remove package/packages
 $ sah -R [package1] [package2] ...
 ```
 
+Remove package/packages with dependencies which aren't required by any other installed packages
+```
+sah -Rs [package1] [package2] ...
+```
+
 Show installed packages (All)
 ```
 $ sah -Qe
