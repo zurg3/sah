@@ -85,6 +85,8 @@ elif [[ $1 == "-Syu" ]]; then
           makepkg $makepkg_type
           cd ..
           rm -rf $check_pkg
+        elif [[ $check_pkg_v_sq == $version_full ]]; then
+          echo "$latest_version_message"
         fi
       elif [[ $? == "1" ]]; then
         echo "$update_message"
