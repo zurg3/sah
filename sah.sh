@@ -50,9 +50,10 @@ elif [[ $1 == "-Syu" ]]; then
     check_pkg=${pkg_list[$i]}
     check_pkg_v=${pkg_list_v[$i]}
     check_pkg_v=$(echo $check_pkg_v | awk '{print $2}')
+    check_pkg_num=$(($i + 1))
 
-    latest_version_message="-> $check_pkg - you have the latest version."
-    update_message="Updating $check_pkg..."
+    latest_version_message="-> [$check_pkg_num / $pkgz] $check_pkg - you have the latest version."
+    update_message="-> [$check_pkg_num / $pkgz] Updating $check_pkg..."
 
     # Exceptions
     if [[ $check_pkg != "sah" ]]; then
