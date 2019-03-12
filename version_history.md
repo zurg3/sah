@@ -1,0 +1,18 @@
+# SAH version history
+- [v0.3.1](https://raw.githubusercontent.com/zurg3/sah/v0.3.1/sah.sh)
+- [v0.3](https://raw.githubusercontent.com/zurg3/sah/v0.3/sah.sh)
+- [v0.2](https://raw.githubusercontent.com/zurg3/sah/v0.2/sah.sh)
+- [v0.1.2](https://raw.githubusercontent.com/zurg3/sah/v0.1.2/sah.sh)
+- [v0.1.1](https://raw.githubusercontent.com/zurg3/sah/v0.1.1/sah.sh)
+- [v0.1](https://raw.githubusercontent.com/zurg3/sah/v0.1/sah.sh) - release on GitHub
+- [v0.0.10](https://raw.githubusercontent.com/zurg3/test/ed2abf2c8e9dd91f618af730298aae953312911b/sah.sh)
+- [v0.0.9](https://raw.githubusercontent.com/zurg3/test/b1322734d1844c4b4332f08cb80b5ed5766f89dc/sah.sh)
+- [v0.0.8](https://raw.githubusercontent.com/zurg3/test/164da0a0425bdc0d635e0acd89771847c8167a10/sah.sh)
+- [v0.0.7](https://raw.githubusercontent.com/zurg3/test/be4693a81b5155236cb92e13e52722466b513517/sah.sh)
+- [v0.0.6](https://raw.githubusercontent.com/zurg3/test/7b9817bead621558488049f52fb6271799dfd155/sah.sh)
+- [v0.0.4](https://raw.githubusercontent.com/zurg3/test/bb590d038cd8c4f15288615d6d626792620106a5/sah.sh)
+- [v0.0.3](https://raw.githubusercontent.com/zurg3/test/d4cc338cd932a296021eaafce8b62c263a7f92fb/sah.sh)
+- [v0.0.2](https://raw.githubusercontent.com/zurg3/test/26cbd4f61ec40a2e8761aa68d943bc4fed94a16f/sah.sh)
+- [v0.0.2](https://raw.githubusercontent.com/zurg3/test/3b9659efb39ef6cb548e37852ab04739536106bf/sah.sh)
+- [v0.0.1](https://raw.githubusercontent.com/zurg3/test/c9f06032271074fd3c474250d5f7b51e468963cc/ami.sh)
+- [v0.0.1](https://raw.githubusercontent.com/zurg3/test/401e44fba06fa435ad7bd18659d1b474b9007880/ami.sh) - first release as AUR Mini Installer (AMI)
