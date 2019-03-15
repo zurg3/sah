@@ -1,3 +1,6 @@
+v0.4
+- Added man page for SAH
+
 v0.3.2
 - Fixed cases when --rmd is not the last option
 

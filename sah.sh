@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Simple AUR Helper (SAH)
-VERSION="0.3.2"
+VERSION="0.4"
 
 pkg_list_path="/home/$USER/.sah_pkg_list"
 pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
