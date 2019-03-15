@@ -1,0 +1,81 @@
+.TH SAH 8 "February 12, 2019" "version 0.3.2" "SAH Manual"
+.SH NAME
+Simple AUR Helper (SAH)
+.SH SYNOPSIS
+.B sah
+<operation> [packages] [options]
+.SH DESCRIPTION
+Simple AUR Helper
+.SH OPERATIONS
+.B -S
+.RS
+Install package/packages from AUR
+.RE
+.B -Sp
+.RS
+Install package/packages from Pacman
+.RE
+.B -Syu
+.RS
+Update installed packages (Pacman + AUR)
+.RE
+.B -Sc
+.RS
+Clean the package cache
+.RE
+.B -R
+.RS
+Remove package/packages
+.RE
+.B -Rs
+.RS
+Remove package/packages with dependencies which aren't required by any other installed packages
+.RE
+.B -Qe
+.RS
+Show installed packages (All)
+.RE
+.B -Qm
+.RS
+Show installed packages (AUR)
+.RE
+.B -Ss
+.RS
+Search for packages in the database
+.RE
+.B -Qs
+.RS
+Search for already installed packages
+.RE
+.B -Si
+.RS
+Show information about package
+.RE
+.B -Qi
+.RS
+Show information about package (for locally installed packages)
+.RE
+.B -Qdt
+.RS
+Show all packages no longer required as dependencies (orphans)
+.RE
+.SH OPTIONS
+.B --rmd
+.RS
+Remove make dependencies
+.RE
+.SH EXAMPLES
+Install package/packages from AUR and remove make dependencies
+.RS
+.B sah
+-S [package1] [package2] ... --rmd
+.RE
+Update installed packages (Pacman + AUR) and remove make dependencies of updated AUR packages
+.RS
+.B sah
+-Syu --rmd
+.RE
+.SH AUTHOR
+Stepan Skryabin
+.SH "SEE ALSO"
+pacman(8)
