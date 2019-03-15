@@ -20,14 +20,19 @@ if [[ $1 == "-S" ]]; then
     aur_pkg_range="${@:2:$#-2}"
   fi
 
-  for aur_pkg in $aur_pkg_range
-  do
-    git clone https://aur.archlinux.org/$aur_pkg.git
-    cd $aur_pkg
-    makepkg $makepkg_type
-    cd ..
-    rm -rf $aur_pkg
-  done
+  echo "$aur_pkg_range" | grep -q "\-\-rmd"
+  if [[ $? == "0" ]]; then
+    echo "Warning! --rmd should be the last option!"
+  elif [[ $? == "1" ]]; then
+    for aur_pkg in $aur_pkg_range
+    do
+      git clone https://aur.archlinux.org/$aur_pkg.git
+      cd $aur_pkg
+      makepkg $makepkg_type
+      cd ..
+      rm -rf $aur_pkg
+    done
+  fi
 elif [[ $1 == "-Sp" ]]; then
   sudo pacman -S ${@:2}
 elif [[ $1 == "-Syu" ]]; then
