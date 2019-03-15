@@ -6,6 +6,10 @@
 
 **License:** GNU GPL v3
 
+**Changelog** is [here](https://github.com/zurg3/sah/blob/master/changelog.txt)
+
+**Version history** is [here](https://github.com/zurg3/sah/blob/master/version_history.md)
+
 ## Dependencies:
 - [bash](https://www.archlinux.org/packages/core/x86_64/bash/)
 - [sudo](https://www.archlinux.org/packages/core/x86_64/sudo/)
