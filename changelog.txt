@@ -1,3 +1,6 @@
+v0.3.2
+- Fixed cases when --rmd is not the last option
+
 v0.3.1
 - Fixed update checking for versions with single quotes
 - Added showing numbers of checking AUR packages
