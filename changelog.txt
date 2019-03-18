@@ -1,14 +1,14 @@
-v0.4
+v0.4 (15.03.2019)
 - Added man page for SAH
 
-v0.3.2
+v0.3.2 (15.03.2019)
 - Fixed cases when --rmd is not the last option
 
-v0.3.1
+v0.3.1 (19.02.2019)
 - Fixed update checking for versions with single quotes
 - Added showing numbers of checking AUR packages
 
-v0.3
+v0.3 (18.02.2019)
 - New features:
   - Remove packages with their dependencies
   - Search for packages
@@ -16,16 +16,16 @@ v0.3
   - Show all packages no longer required as dependencies
 - SAH info shows via less
 
-v0.2
+v0.2 (16.02.2019)
 - Changed paths to files containing lists of installed AUR packages
 - Added a feature to clean the package cache
 - Code optimization
 
-v0.1.2
+v0.1.2 (15.02.2019)
 - Fixed updating SAH when installed latest SAH version
 
-v0.1.1
+v0.1.1 (15.02.2019)
 - Added updating SAH when packages update
 
-v0.1
+v0.1 (15.02.2019)
 - Release on GitHub
