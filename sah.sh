@@ -44,6 +44,12 @@ elif [[ $1 == "-Syu" ]]; then
   pkgz=${#pkg_list[@]}
   pkgz_v=${#pkg_list_v[@]}
 
+  aur_update_ignore_count=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | tr ',' '\n' | wc -l)
+  for (( i = 0; i < $aur_update_ignore_count; i++ )); do
+    aur_update_ignore_num=$(($i + 1))
+    aur_update_ignore[$i]=$(cat /etc/sah_config | grep "aur_update_ignore" | awk -F "=" '{print $2}' | awk -F "," "{print \$$aur_update_ignore_num}")
+  done
+
   mkdir $PKGBUILDs_path
   for (( i = 0; i < $pkgz; i++ )); do
     check_pkg=${pkg_list[$i]}
@@ -53,6 +59,7 @@ elif [[ $1 == "-Syu" ]]; then
 
     latest_version_message="-> [$check_pkg_num / $pkgz] $check_pkg - you have the latest version."
     update_message="-> [$check_pkg_num / $pkgz] Updating $check_pkg..."
+    aur_update_ignore_message="-> [$check_pkg_num / $pkgz] $check_pkg - skipped."
 
     # Exceptions
     if [[ $check_pkg != "sah" ]]; then
@@ -69,33 +76,37 @@ elif [[ $1 == "-Syu" ]]; then
     version_patch=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
     version_full="$version_main-$version_patch"
 
-    if [[ $check_pkg_v == $version_full ]]; then
-      echo "$latest_version_message"
-    elif [[ $check_pkg_v != $version_full ]]; then
-      # Version from PKGBUILD may has the single quotes.
-      echo "$version_full" | grep -q "'"
-      if [[ $? == "0" ]]; then
-        pkgver_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $1}')
-        pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
-        check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
-        if [[ $check_pkg_v_sq != $version_full ]]; then
+    if [[ " ${aur_update_ignore[*]} " != *" $check_pkg "* ]]; then
+      if [[ $check_pkg_v == $version_full ]]; then
+        echo "$latest_version_message"
+      elif [[ $check_pkg_v != $version_full ]]; then
+        # Version from PKGBUILD may has the single quotes.
+        echo "$version_full" | grep -q "'"
+        if [[ $? == "0" ]]; then
+          pkgver_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $1}')
+          pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
+          check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
+          if [[ $check_pkg_v_sq != $version_full ]]; then
+            echo "$update_message"
+            git clone $git_clone_link
+            cd $check_pkg
+            makepkg $makepkg_type
+            cd ..
+            rm -rf $check_pkg
+          elif [[ $check_pkg_v_sq == $version_full ]]; then
+            echo "$latest_version_message"
+          fi
+        elif [[ $? == "1" ]]; then
           echo "$update_message"
           git clone $git_clone_link
           cd $check_pkg
           makepkg $makepkg_type
           cd ..
           rm -rf $check_pkg
-        elif [[ $check_pkg_v_sq == $version_full ]]; then
-          echo "$latest_version_message"
         fi
-      elif [[ $? == "1" ]]; then
-        echo "$update_message"
-        git clone $git_clone_link
-        cd $check_pkg
-        makepkg $makepkg_type
-        cd ..
-        rm -rf $check_pkg
       fi
+    elif [[ " ${aur_update_ignore[*]} " == *" $check_pkg "* ]]; then
+      echo "$aur_update_ignore_message"
     fi
   done
   rm $pkg_list_path
