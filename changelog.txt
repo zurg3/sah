@@ -1,3 +1,9 @@
+v0.4.1 (21.03.2019)
+- Added config file for SAH
+- Removed --rmd as an option of SAH command.
+Since v0.4.1 you need set up 'true' rmd property in config file to remove make dependencies.
+- Added a feature to skip updating of some AUR packages
+
 v0.4 (15.03.2019)
 - Added man page for SAH
 
