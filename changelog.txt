@@ -1,3 +1,6 @@
+v0.4.2 (21.03.2019)
+- Fixed SAH man page
+
 v0.4.1 (21.03.2019)
 - Added config file for SAH
 - Removed --rmd as an option of SAH command.
