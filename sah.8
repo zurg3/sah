@@ -59,6 +59,23 @@ Show information about package (for locally installed packages)
 .RS
 Show all packages no longer required as dependencies (orphans)
 .RE
+.SH CONFIGURATION
+You can edit SAH config file to set up some settings
+SAH config file path:
+.B /etc/sah_config
+.PP
+.PP
+.B Supported properties in config:
+.PP
+aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
+.PP
+rmd (true/false) - remove make dependencies of AUR packages during installation or updating
+.PP
+.B Properties examples:
+.PP
+aur_update_ignore=yay,dropbox,google-chrome
+.PP
+rmd=false
 .SH EXAMPLES
 Install package/packages from AUR
 .RS

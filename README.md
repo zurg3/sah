@@ -94,3 +94,18 @@ Show all packages no longer required as dependencies (orphans)
 ```
 sah -Qdt
 ```
+
+## Configuration:
+You can edit SAH config file to set up some settings
+SAH config file path: **/etc/sah_config**
+
+### Supported properties in config
+| Property | Value/Values | Description |
+| -------- | ------------ | ----------- |
+| aur_update_ignore | package1,package2,... | skip updating of some AUR packages |
+| rmd | true/false | remove make dependencies of AUR packages during installation or updating |
+
+### Properties examples:
+aur_update_ignore=*yay,dropbox,google-chrome*
+
+rmd=*false*
