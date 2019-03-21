@@ -6,33 +6,27 @@ VERSION="0.4"
 pkg_list_path="/home/$USER/.sah_pkg_list"
 pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
+SAH_config_path="/etc/sah_config"
+
+rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
+
 # Remove make dependencies
-if [[ ${@: -1} != "--rmd" ]]; then
+if [[ $rmd_check == "false" ]]; then
   makepkg_type="-si --skippgpcheck"
-elif [[ ${@: -1} == "--rmd" ]]; then
+elif [[ $rmd_check == "true" ]]; then
   makepkg_type="-sir --skippgpcheck"
 fi
 
 if [[ $1 == "-S" ]]; then
-  if [[ ${@: -1} != "--rmd" ]]; then
-    aur_pkg_range="${@:2}"
-  elif [[ ${@: -1} == "--rmd" ]]; then
-    aur_pkg_range="${@:2:$#-2}"
-  fi
-
-  echo "$aur_pkg_range" | grep -q "\-\-rmd"
-  if [[ $? == "0" ]]; then
-    echo "Warning! --rmd should be the last option!"
-  elif [[ $? == "1" ]]; then
-    for aur_pkg in $aur_pkg_range
-    do
-      git clone https://aur.archlinux.org/$aur_pkg.git
-      cd $aur_pkg
-      makepkg $makepkg_type
-      cd ..
-      rm -rf $aur_pkg
-    done
-  fi
+  aur_pkg_range="${@:2}"
+  for aur_pkg in $aur_pkg_range
+  do
+    git clone https://aur.archlinux.org/$aur_pkg.git
+    cd $aur_pkg
+    makepkg $makepkg_type
+    cd ..
+    rm -rf $aur_pkg
+  done
 elif [[ $1 == "-Sp" ]]; then
   sudo pacman -S ${@:2}
 elif [[ $1 == "-Syu" ]]; then
@@ -153,17 +147,11 @@ Examples:
 Install package/packages from AUR
 sah -S [package1] [package2] ...
 
-Install package/packages from AUR and remove make dependencies
-sah -S [package1] [package2] ... --rmd
-
 Install package/packages from Pacman
 sah -Sp [package1] [package2] ...
 
 Update installed packages (Pacman + AUR)
 sah -Syu
-
-Update installed packages (Pacman + AUR) and remove make dependencies of updated AUR packages
-sah -Syu --rmd
 
 Clean the package cache
 sah -Sc

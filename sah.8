@@ -59,21 +59,16 @@ Show information about package (for locally installed packages)
 .RS
 Show all packages no longer required as dependencies (orphans)
 .RE
-.SH OPTIONS
-.B --rmd
-.RS
-Remove make dependencies
-.RE
 .SH EXAMPLES
-Install package/packages from AUR and remove make dependencies
+Install package/packages from AUR
 .RS
 .B sah
--S [package1] [package2] ... --rmd
+-S [package1] [package2] ...
 .RE
-Update installed packages (Pacman + AUR) and remove make dependencies of updated AUR packages
+Update installed packages (Pacman + AUR)
 .RS
 .B sah
--Syu --rmd
+-Syu
 .RE
 .SH AUTHOR
 Stepan Skryabin
