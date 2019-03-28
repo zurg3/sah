@@ -57,7 +57,7 @@ $ sah -R [package1] [package2] ...
 
 Remove package/packages with dependencies which aren't required by any other installed packages
 ```
-sah -Rs [package1] [package2] ...
+$ sah -Rs [package1] [package2] ...
 ```
 
 Show installed packages (All)
@@ -72,27 +72,27 @@ $ sah -Qm
 
 Search for packages in the database
 ```
-sah -Ss [package]
+$ sah -Ss [package]
 ```
 
 Search for already installed packages
 ```
-sah -Qs [package]
+$ sah -Qs [package]
 ```
 
 Show information about package
 ```
-sah -Si [package]
+$ sah -Si [package]
 ```
 
 Show information about package (for locally installed packages)
 ```
-sah -Qi [package]
+$ sah -Qi [package]
 ```
 
 Show all packages no longer required as dependencies (orphans)
 ```
-sah -Qdt
+$ sah -Qdt
 ```
 
 ## Configuration:
