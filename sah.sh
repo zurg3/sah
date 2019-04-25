@@ -47,7 +47,7 @@ elif [[ $1 == "-Syu" ]]; then
   aur_update_ignore_count=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | tr ',' '\n' | wc -l)
   for (( i = 0; i < $aur_update_ignore_count; i++ )); do
     aur_update_ignore_num=$(($i + 1))
-    aur_update_ignore[$i]=$(cat /etc/sah_config | grep "aur_update_ignore" | awk -F "=" '{print $2}' | awk -F "," "{print \$$aur_update_ignore_num}")
+    aur_update_ignore[$i]=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | awk -F "," "{print \$$aur_update_ignore_num}")
   done
 
   mkdir $PKGBUILDs_path
