@@ -3,11 +3,15 @@
 ### Simple AUR Helper (SAH)
 VERSION="0.4.2"
 
+##### Settings
+
+# Variables to paths
 pkg_list_path="/home/$USER/.sah_pkg_list"
 pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
 SAH_config_path="/etc/sah_config"
 
+# Reading config options
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
 pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
 
@@ -25,18 +29,24 @@ elif [[ $pgp_check == "true" ]]; then
   makepkg_type="$makepkg_type"
 fi
 
+##### Main code
+
+# SAH Install
 if [[ $1 == "-S" ]]; then
   aur_pkg_range="${@:2}"
   for aur_pkg in $aur_pkg_range
   do
     git clone https://aur.archlinux.org/$aur_pkg.git
     cd $aur_pkg
+    echo "Installing $aur_pkg..."
     makepkg $makepkg_type
     cd ..
     rm -rf $aur_pkg
   done
+# SAH Install Pacman
 elif [[ $1 == "-Sp" ]]; then
   sudo pacman -S ${@:2}
+# SAH Update
 elif [[ $1 == "-Syu" ]]; then
   echo "Checking for updates from Pacman..."
   sudo pacman -Syu
@@ -120,30 +130,42 @@ elif [[ $1 == "-Syu" ]]; then
   rm $pkg_list_path
   rm $pkg_list_path_v
   rm -rf $PKGBUILDs_path
+# SAH Clean
 elif [[ $1 == "-Sc" ]]; then
   sudo pacman -Sc
+# SAH Remove
 elif [[ $1 == "-R" ]]; then
   sudo pacman -R ${@:2}
+# SAH Remove With Dependencies
 elif [[ $1 == "-Rs" ]]; then
   sudo pacman -Rs ${@:2}
+# SAH Installed All
 elif [[ $1 == "-Qe" ]]; then
   echo "Installed packages (All):"
   pacman -Qe
+# SAH Installed AUR
 elif [[ $1 == "-Qm" ]]; then
   echo "Installed packages (AUR):"
   pacman -Qm
+# SAH Search
 elif [[ $1 == "-Ss" ]]; then
   pacman -Ss $2
+# SAH Search Installed
 elif [[ $1 == "-Qs" ]]; then
   pacman -Qs $2
+# SAH Show Info
 elif [[ $1 == "-Si" ]]; then
   pacman -Si $2
+# SAH Show Info Installed
 elif [[ $1 == "-Qi" ]]; then
   pacman -Qi $2
+# SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
   pacman -Qdt
+# SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) v$VERSION"
+# SAH Help
 elif [[ $1 == "" || $1 == "--help" || $1 == "-h" ]]; then
   echo "Simple AUR Helper (SAH)
 
