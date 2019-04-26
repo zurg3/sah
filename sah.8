@@ -72,11 +72,15 @@ aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
 .PP
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
 .PP
+pgp_check (true/false) - enable/disable verifying PGP signatures of source files
+.PP
 .B Properties examples:
 .PP
 aur_update_ignore=yay,dropbox,google-chrome
 .PP
 rmd=false
+.PP
+pgp_check=false
 .SH EXAMPLES
 Install package/packages from AUR
 .RS

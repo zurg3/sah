@@ -1,2 +1,3 @@
 aur_update_ignore
 rmd=false
+pgp_check=false

@@ -104,8 +104,11 @@ SAH config file path: **/etc/sah_config**
 | -------- | ------------ | ----------- |
 | aur_update_ignore | package1,package2,... | skip updating of some AUR packages |
 | rmd | true/false | remove make dependencies of AUR packages during installation or updating |
+| pgp_check | true/false | enable/disable verifying PGP signatures of source files |
 
 ### Properties examples:
 aur_update_ignore=*yay,dropbox,google-chrome*
 
 rmd=*false*
+
+pgp_check=*false*

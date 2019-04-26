@@ -9,12 +9,20 @@ PKGBUILDs_path="/tmp/PKGBUILDs"
 SAH_config_path="/etc/sah_config"
 
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
+pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
 
 # Remove make dependencies
 if [[ $rmd_check == "false" ]]; then
-  makepkg_type="-si --skippgpcheck"
+  makepkg_type="-si"
 elif [[ $rmd_check == "true" ]]; then
-  makepkg_type="-sir --skippgpcheck"
+  makepkg_type="-sir"
+fi
+
+# PGP check
+if [[ $pgp_check == "false" ]]; then
+  makepkg_type="$makepkg_type --skippgpcheck"
+elif [[ $pgp_check == "true" ]]; then
+  makepkg_type="$makepkg_type"
 fi
 
 if [[ $1 == "-S" ]]; then
@@ -201,10 +209,12 @@ SAH config file path: $SAH_config_path
 Supported properties in config:
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
+pgp_check (true/false) - enable/disable verifying PGP signatures of source files
 
 Properties examples:
 aur_update_ignore=yay,dropbox,google-chrome
-rmd=false" | less
+rmd=false
+pgp_check=false" | less
 else
   echo "Something is wrong!"
 fi
