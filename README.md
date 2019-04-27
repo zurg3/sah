@@ -35,6 +35,11 @@ $ rm -rf sah
 $ sah changelog
 ```
 
+## Show SAH log (if logging is enabled):
+```
+$ sah log
+```
+
 ## Examples:
 Install package/packages from AUR
 ```
@@ -114,12 +119,15 @@ to open config file via nano editor
 ### Supported properties in config
 | Property | Value/Values | Description |
 | -------- | ------------ | ----------- |
+| logging | true/false | enable/disable logging |
 | aur_update_ignore | package1,package2,... | skip updating of some AUR packages |
 | rmd | true/false | remove make dependencies of AUR packages during installation or updating |
 | pgp_check | true/false | enable/disable verifying PGP signatures of source files |
 | needed | true/false | enable/disable reinstalling packages if they are already up-to-date |
 
 ### Properties examples:
+logging=*true*
+
 aur_update_ignore=*yay,dropbox,google-chrome*
 
 rmd=*false*

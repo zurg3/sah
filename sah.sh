@@ -11,8 +11,14 @@ pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
 SAH_config_path="/etc/sah_config"
 SAH_changelog_path="/usr/share/sah/changelog"
+SAH_log_file_path="/home/$USER/.sah_log"
+
+kernel_version=$(uname -r)
+date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 
 # Reading config options
+logging_check=$(cat $SAH_config_path | grep "logging" | awk -F "=" '{print $2}')
+
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
 pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
 needed_check=$(cat $SAH_config_path | grep "needed" | awk -F "=" '{print $2}')
@@ -39,6 +45,14 @@ elif [[ $needed_check == "true" ]]; then
   makepkg_type="$makepkg_type --needed"
 fi
 
+##### Functions
+
+sah_logging() {
+  if [[ $logging_check == "true" ]]; then
+    echo "[Arch Linux $kernel_version][$USER@$HOSTNAME][$date_time_format] sah $@ [$exit_code]" >> $SAH_log_file_path
+  fi
+}
+
 ##### Main code
 
 # SAH Install
@@ -50,16 +64,29 @@ if [[ $1 == "-S" ]]; then
     cd $aur_pkg
     echo "Installing $aur_pkg..."
     makepkg $makepkg_type
+    ###
+    exit_code=$?
+    ###
     cd ..
     rm -rf $aur_pkg
   done
+  ###
+  sah_logging $@
+  ###
 # SAH Install Pacman
 elif [[ $1 == "-Sp" ]]; then
   sudo pacman -S ${@:2}
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Update
 elif [[ $1 == "-Syu" ]]; then
   echo "Checking for updates from Pacman..."
   sudo pacman -Syu
+  ###
+  exit_code=$?
+  ###
 
   echo
   echo "Checking for updates from AUR..."
@@ -137,50 +164,117 @@ elif [[ $1 == "-Syu" ]]; then
       echo "$aur_update_ignore_message"
     fi
   done
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
   rm $pkg_list_path
   rm $pkg_list_path_v
   rm -rf $PKGBUILDs_path
 # SAH Clean
 elif [[ $1 == "-Sc" ]]; then
   sudo pacman -Sc
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Remove
 elif [[ $1 == "-R" ]]; then
   sudo pacman -R ${@:2}
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Remove With Dependencies
 elif [[ $1 == "-Rs" ]]; then
   sudo pacman -Rs ${@:2}
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Installed All
 elif [[ $1 == "-Qe" ]]; then
   echo "Installed packages (All):"
   pacman -Qe
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Installed AUR
 elif [[ $1 == "-Qm" ]]; then
   echo "Installed packages (AUR):"
   pacman -Qm
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Search
 elif [[ $1 == "-Ss" ]]; then
   pacman -Ss $2
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Search Installed
 elif [[ $1 == "-Qs" ]]; then
   pacman -Qs $2
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Show Info
 elif [[ $1 == "-Si" ]]; then
   pacman -Si $2
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Show Info Installed
 elif [[ $1 == "-Qi" ]]; then
   pacman -Qi $2
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
   pacman -Qdt
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Config
 elif [[ $1 == "config" ]]; then
   sudo nano $SAH_config_path
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Changelog
 elif [[ $1 == "changelog" ]]; then
   less $SAH_changelog_path
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
+# SAH Log
+elif [[ $1 == "log" ]]; then
+  if [[ $logging_check == "true" ]]; then
+    less $SAH_log_file_path
+    ###
+    exit_code=$?
+    sah_logging $@
+    ###
+  elif [[ $logging_check == "false" ]]; then
+    echo "Logging is disabled."
+  fi
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) v$VERSION"
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Help
 elif [[ $1 == "" || $1 == "--help" || $1 == "-h" ]]; then
   echo "Simple AUR Helper (SAH)
@@ -203,6 +297,9 @@ Dependencies:
 
 Show SAH changelog:
 sah changelog
+
+Show SAH log (if logging is enabled):
+sah log
 
 Examples:
 Install package/packages from AUR
@@ -251,21 +348,36 @@ SAH config file path: $SAH_config_path
 Also you can use 'sah config' to open config file via nano editor
 
 Supported properties in config:
+logging (true/false) - enable/disable logging
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
 pgp_check (true/false) - enable/disable verifying PGP signatures of source files
 needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
 
 Properties examples:
+logging=true
 aur_update_ignore=yay,dropbox,google-chrome
 rmd=false
 pgp_check=false
 needed=false" | less
+###
+exit_code=$?
+sah_logging $@
+###
 # SAH Debug
 elif [[ $1 == "debug" ]]; then
-  echo "SAH Debug v$VERSION"
+  # Man page preview: nroff -man sah.8 | less
+  echo "=====SAH Debug v$VERSION====="
   echo ""
   echo "....."
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 else
   echo "Something is wrong!"
+  ###
+  exit_code="1"
+  sah_logging $@
+  ###
 fi

@@ -68,6 +68,10 @@ Open config file via nano editor
 .RS
 Show SAH changelog
 .RE
+.B log
+.RS
+Show SAH log (if logging is enabled)
+.RE
 .SH CONFIGURATION
 You can edit SAH config file to set up some settings
 .PP
@@ -78,6 +82,8 @@ Also you can use 'sah config' to open config file via nano editor
 .PP
 .B Supported properties in config:
 .PP
+logging (true/false) - enable/disable logging
+.PP
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
 .PP
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
@@ -87,6 +93,8 @@ pgp_check (true/false) - enable/disable verifying PGP signatures of source files
 needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
 .PP
 .B Properties examples:
+.PP
+logging=true
 .PP
 aur_update_ignore=yay,dropbox,google-chrome
 .PP
