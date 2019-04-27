@@ -10,14 +10,22 @@ depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less' 'nano' 'b
 source=("https://github.com/zurg3/sah/archive/v$pkgver.tar.gz")
 md5sums=('SKIP')
 
-package() {
-  cd "$srcdir/$pkgname-$pkgver"
-  install -Dm755 sah.sh "$pkgdir/usr/bin/sah"
-  install -Dm644 sah.8 "$pkgdir/usr/share/man/man8/sah.8"
-  test -f "$pkgdir/etc/sah_config"
-  if [[ $? == "1" ]]; then
+test -f /etc/sah_config
+if [[ $? == "1" ]]; then
+  package() {
+    cd "$srcdir/$pkgname-$pkgver"
+    install -Dm755 sah.sh "$pkgdir/usr/bin/sah"
+    install -Dm644 sah.8 "$pkgdir/usr/share/man/man8/sah.8"
     install -Dm644 sah_config_default "$pkgdir/etc/sah_config"
-  fi
-  install -Dm644 changelog.txt "$pkgdir/usr/share/sah/changelog"
-  install -Dm644 sah_completion.bash "$pkgdir/etc/bash_completion.d/sah_completion.bash"
-}
+    install -Dm644 changelog.txt "$pkgdir/usr/share/sah/changelog"
+    install -Dm644 sah_completion.bash "$pkgdir/etc/bash_completion.d/sah_completion.bash"
+  }
+elif [[ $? == "0" ]]; then
+  package() {
+    cd "$srcdir/$pkgname-$pkgver"
+    install -Dm755 sah.sh "$pkgdir/usr/bin/sah"
+    install -Dm644 sah.8 "$pkgdir/usr/share/man/man8/sah.8"
+    install -Dm644 changelog.txt "$pkgdir/usr/share/sah/changelog"
+    install -Dm644 sah_completion.bash "$pkgdir/etc/bash_completion.d/sah_completion.bash"
+  }
+fi
