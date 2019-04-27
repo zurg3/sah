@@ -14,7 +14,7 @@ package() {
   cd "$srcdir/$pkgname-$pkgver"
   install -Dm755 sah.sh "$pkgdir/usr/bin/sah"
   install -Dm644 sah.8 "$pkgdir/usr/share/man/man8/sah.8"
-  test -f /etc/sah_config
+  test -f "$pkgdir/etc/sah_config"
   if [[ $? == "1" ]]; then
     install -Dm644 sah_config_default "$pkgdir/etc/sah_config"
   fi
