@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Simple AUR Helper (SAH)
-VERSION="0.5"
+VERSION="0.5.1"
 
 ##### Settings
 
