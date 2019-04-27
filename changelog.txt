@@ -1,3 +1,6 @@
+v0.5.2 (27.04.2019)
+- Another try to fix config installation in PKGBUILD
+
 v0.5.1 (27.04.2019)
 - Tried to fix config installation in PKGBUILD
 
