@@ -186,6 +186,7 @@ Dependencies:
 - wget
 - grep
 - less
+- nano
 
 Examples:
 Install package/packages from AUR

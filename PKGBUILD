@@ -6,7 +6,7 @@ pkgdesc="Simple AUR Helper (SAH)"
 arch=('any')
 url="https://github.com/zurg3/sah"
 license=('GPLv3')
-depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less')
+depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less' 'nano')
 source=("https://github.com/zurg3/sah/archive/v$pkgver.tar.gz")
 md5sums=('SKIP')
 

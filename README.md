@@ -19,6 +19,7 @@
 - [wget](https://www.archlinux.org/packages/extra/x86_64/wget/)
 - [grep](https://www.archlinux.org/packages/core/x86_64/grep/)
 - [less](https://www.archlinux.org/packages/core/x86_64/less/)
+- [nano](https://www.archlinux.org/packages/core/x86_64/nano/)
 
 ## Installation:
 ```
