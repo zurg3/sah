@@ -108,6 +108,7 @@ $ sah -Qdt
 
 ## Configuration:
 You can edit SAH config file to set up some settings
+
 SAH config file path: **/etc/sah_config**
 
 Also you can use
