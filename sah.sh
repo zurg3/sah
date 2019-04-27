@@ -261,6 +261,11 @@ aur_update_ignore=yay,dropbox,google-chrome
 rmd=false
 pgp_check=false
 needed=false" | less
+# SAH Debug
+elif [[ $1 == "debug" ]]; then
+  echo "SAH Debug v$VERSION"
+  echo ""
+  echo "....."
 else
   echo "Something is wrong!"
 fi
