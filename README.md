@@ -99,6 +99,12 @@ $ sah -Qdt
 You can edit SAH config file to set up some settings
 SAH config file path: **/etc/sah_config**
 
+Also you can use
+```
+$ sah config
+```
+to open config file via nano editor
+
 ### Supported properties in config
 | Property | Value/Values | Description |
 | -------- | ------------ | ----------- |

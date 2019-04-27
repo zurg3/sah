@@ -162,6 +162,9 @@ elif [[ $1 == "-Qi" ]]; then
 # SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
   pacman -Qdt
+# SAH Config
+elif [[ $1 == "config" ]]; then
+  sudo nano $SAH_config_path
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) v$VERSION"
@@ -227,6 +230,8 @@ sah -Qdt
 Configuration:
 You can edit SAH config file to set up some settings
 SAH config file path: $SAH_config_path
+
+Also you can use 'sah config' to open config file via nano editor
 
 Supported properties in config:
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
