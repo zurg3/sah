@@ -294,6 +294,7 @@ Dependencies:
 - grep
 - less
 - nano
+- bash-completion
 
 Show SAH changelog:
 sah changelog
