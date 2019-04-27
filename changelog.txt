@@ -1,3 +1,6 @@
+v0.5.4 (27.04.2019)
+- Fixed SAH man page
+
 v0.5.3 (27.04.2019)
 - Probably, I found the right solution to fix PKGBUILD
 
