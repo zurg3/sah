@@ -30,6 +30,11 @@ $ cd ..
 $ rm -rf sah
 ```
 
+## Show SAH changelog:
+```
+$ sah changelog
+```
+
 ## Examples:
 Install package/packages from AUR
 ```

@@ -10,6 +10,7 @@ pkg_list_path="/home/$USER/.sah_pkg_list"
 pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
 SAH_config_path="/etc/sah_config"
+SAH_changelog_path="/usr/share/sah/changelog"
 
 # Reading config options
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
@@ -165,6 +166,9 @@ elif [[ $1 == "-Qdt" ]]; then
 # SAH Config
 elif [[ $1 == "config" ]]; then
   sudo nano $SAH_config_path
+# SAH Changelog
+elif [[ $1 == "changelog" ]]; then
+  less $SAH_changelog_path
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) v$VERSION"
@@ -187,6 +191,9 @@ Dependencies:
 - grep
 - less
 - nano
+
+Show SAH changelog:
+sah changelog
 
 Examples:
 Install package/packages from AUR
