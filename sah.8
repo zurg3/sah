@@ -82,15 +82,26 @@ Also you can use 'sah config' to open config file via nano editor
 .PP
 .B Supported properties in config:
 .PP
-logging (true/false) - enable/disable logging
-.PP
-aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
-.PP
-rmd (true/false) - remove make dependencies of AUR packages during installation or updating
-.PP
-pgp_check (true/false) - enable/disable verifying PGP signatures of source files
-.PP
-needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
+.B logging (true/false)
+.RS
+enable/disable logging
+.RE
+.B aur_update_ignore (package1,package2,...)
+.RS
+skip updating of some AUR packages
+.RE
+.B rmd (true/false)
+.RS
+remove make dependencies of AUR packages during installation or updating
+.RE
+.B pgp_check (true/false)
+.RS
+enable/disable verifying PGP signatures of source files
+.RE
+.B needed (true/false)
+.RS
+enable/disable reinstalling packages if they are already up-to-date
+.RE
 .PP
 .B Properties examples:
 .PP
