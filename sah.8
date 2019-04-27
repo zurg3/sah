@@ -84,6 +84,8 @@ rmd (true/false) - remove make dependencies of AUR packages during installation 
 .PP
 pgp_check (true/false) - enable/disable verifying PGP signatures of source files
 .PP
+needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
+.PP
 .B Properties examples:
 .PP
 aur_update_ignore=yay,dropbox,google-chrome
@@ -91,6 +93,8 @@ aur_update_ignore=yay,dropbox,google-chrome
 rmd=false
 .PP
 pgp_check=false
+.PP
+needed=false
 .SH EXAMPLES
 Install package/packages from AUR
 .RS

@@ -15,19 +15,28 @@ SAH_changelog_path="/usr/share/sah/changelog"
 # Reading config options
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
 pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
+needed_check=$(cat $SAH_config_path | grep "needed" | awk -F "=" '{print $2}')
 
-# Remove make dependencies
+# Remove make dependencies (-si/-sir)
 if [[ $rmd_check == "false" ]]; then
   makepkg_type="-si"
 elif [[ $rmd_check == "true" ]]; then
   makepkg_type="-sir"
 fi
 
-# PGP check
+# PGP check (--skippgpcheck)
 if [[ $pgp_check == "false" ]]; then
   makepkg_type="$makepkg_type --skippgpcheck"
 elif [[ $pgp_check == "true" ]]; then
   makepkg_type="$makepkg_type"
+fi
+
+# Needed (--needed)
+# Don't reinstall packages if they are already up-to-date
+if [[ $needed_check == "false" ]]; then
+  makepkg_type="$makepkg_type"
+elif [[ $needed_check == "true" ]]; then
+  makepkg_type="$makepkg_type --needed"
 fi
 
 ##### Main code
@@ -245,11 +254,13 @@ Supported properties in config:
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
 pgp_check (true/false) - enable/disable verifying PGP signatures of source files
+needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
 
 Properties examples:
 aur_update_ignore=yay,dropbox,google-chrome
 rmd=false
-pgp_check=false" | less
+pgp_check=false
+needed=false" | less
 else
   echo "Something is wrong!"
 fi

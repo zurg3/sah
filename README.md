@@ -117,6 +117,7 @@ to open config file via nano editor
 | aur_update_ignore | package1,package2,... | skip updating of some AUR packages |
 | rmd | true/false | remove make dependencies of AUR packages during installation or updating |
 | pgp_check | true/false | enable/disable verifying PGP signatures of source files |
+| needed | true/false | enable/disable reinstalling packages if they are already up-to-date |
 
 ### Properties examples:
 aur_update_ignore=*yay,dropbox,google-chrome*
@@ -124,3 +125,5 @@ aur_update_ignore=*yay,dropbox,google-chrome*
 rmd=*false*
 
 pgp_check=*false*
+
+needed=*false*
