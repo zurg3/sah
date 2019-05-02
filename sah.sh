@@ -326,6 +326,13 @@ elif [[ $1 == "log" ]]; then
   elif [[ $logging_check == "false" ]]; then
     echo "Logging is disabled."
   fi
+elif [[ $1 == "clearlog" ]]; then
+  if [[ $logging_check == "true" ]]; then
+    > $SAH_log_file_path
+    echo "SAH log file cleared."
+  elif [[ $logging_check == "false" ]]; then
+    echo "Logging is disabled."
+  fi
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) v$VERSION"

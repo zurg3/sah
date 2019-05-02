@@ -1,1 +1,1 @@
-complete -W "config pacconf mirrorlist updatemirrors changelog log debug" sah
+complete -W "config pacconf mirrorlist updatemirrors changelog log clearlog debug" sah
