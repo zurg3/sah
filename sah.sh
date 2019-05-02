@@ -11,6 +11,7 @@ pkg_list_path_v="/home/$USER/.sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
 SAH_config_path="/etc/sah_config"
 pacman_config_path="/etc/pacman.conf"
+mirrorlist_path="/etc/pacman.d/mirrorlist"
 SAH_changelog_path="/usr/share/sah/changelog"
 SAH_log_file_path="/home/$USER/.sah_log"
 
@@ -286,6 +287,12 @@ elif [[ $1 == "config" ]]; then
 # SAH Pacman Config
 elif [[ $1 == "pacconf" ]]; then
   sudo nano $pacman_config_path
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
+elif [[ $1 == "mirrorlist" ]]; then
+  sudo nano $mirrorlist_path
   ###
   exit_code=$?
   sah_logging $@
