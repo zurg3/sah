@@ -10,6 +10,10 @@
 
 **Version history** is [here](https://github.com/zurg3/sah/blob/master/version_history.md)
 
+## Some notes:
+- [Issues](https://github.com/zurg3/sah/issues) and [Pull Requests](https://github.com/zurg3/sah/pulls) are welcome.
+- If this repository will get at least 10 stars, I'll add the PKGBUILD to AUR.
+
 ## Dependencies:
 - [bash](https://www.archlinux.org/packages/core/x86_64/bash/)
 - [sudo](https://www.archlinux.org/packages/core/x86_64/sudo/)
