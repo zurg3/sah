@@ -1,4 +1,6 @@
 logging=true
+
+update_pacman=true
 aur_update_notify=false
 
 aur_update_ignore

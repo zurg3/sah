@@ -18,6 +18,8 @@ date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 
 # Reading config options
 logging_check=$(cat $SAH_config_path | grep "logging" | awk -F "=" '{print $2}')
+
+update_pacman_check=$(cat $SAH_config_path | grep "update_pacman" | awk -F "=" '{print $2}')
 aur_update_notify_check=$(cat $SAH_config_path | grep "aur_update_notify" | awk -F "=" '{print $2}')
 
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
@@ -83,11 +85,18 @@ elif [[ $1 == "-Sp" ]]; then
   ###
 # SAH Update
 elif [[ $1 == "-Syu" ]]; then
-  echo "Checking for updates from Pacman..."
-  sudo pacman -Syu
-  ###
-  exit_code=$?
-  ###
+  if [[ $update_pacman_check == "true" ]]; then
+    echo "Checking for updates from Pacman..."
+    sudo pacman -Syu
+    ###
+    exit_code=$?
+    ###
+  elif [[ $update_pacman_check == "false" ]]; then
+    echo "Updating of Pacman packages is disabled."
+    ###
+    exit_code=$?
+    ###
+  fi
 
   echo
   echo "Checking for updates from AUR..."
