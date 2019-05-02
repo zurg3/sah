@@ -25,6 +25,10 @@ update_pacman_check=$(cat $SAH_config_path | grep "update_pacman" | awk -F "=" '
 update_aur_check=$(cat $SAH_config_path | grep "update_aur" | awk -F "=" '{print $2}')
 aur_update_notify_check=$(cat $SAH_config_path | grep "aur_update_notify" | awk -F "=" '{print $2}')
 
+mirrorlist_country=$(cat $SAH_config_path | grep "mirrorlist_country" | awk -F "=" '{print $2}')
+mirrorlist_protocol=$(cat $SAH_config_path | grep "mirrorlist_protocol" | awk -F "=" '{print $2}')
+mirrorlist_ip_version=$(cat $SAH_config_path | grep "mirrorlist_ip_version" | awk -F "=" '{print $2}')
+
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
 pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
 needed_check=$(cat $SAH_config_path | grep "needed" | awk -F "=" '{print $2}')
@@ -292,6 +296,13 @@ elif [[ $1 == "pacconf" ]]; then
   sah_logging $@
   ###
 elif [[ $1 == "mirrorlist" ]]; then
+  sudo nano $mirrorlist_path
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
+elif [[ $1 == "updatemirrors" ]]; then
+  sudo curl -s "https://www.archlinux.org/mirrorlist/?country=$mirrorlist_country&protocol=$mirrorlist_protocol&ip_version=$mirrorlist_ip_version" -o $mirrorlist_path
   sudo nano $mirrorlist_path
   ###
   exit_code=$?

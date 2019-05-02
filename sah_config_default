@@ -6,6 +6,10 @@ aur_update_notify=false
 
 aur_update_ignore
 
+mirrorlist_country=all
+mirrorlist_protocol=http
+mirrorlist_ip_version=4
+
 rmd=false
 pgp_check=false
 needed=false
