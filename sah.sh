@@ -373,11 +373,26 @@ Dependencies:
 - bash-completion
 - curl
 
+Update SAH config file from GitHub repo:
+sah updateconfig
+
+Open Pacman config file via nano editor:
+sah pacconf
+
+Open mirrorlist file via nano editor:
+sah mirrorlist
+
+Update mirrorlist from Arch Linux website:
+sah updatemirrors
+
 Show SAH changelog:
 sah changelog
 
 Show SAH log (if logging is enabled):
 sah log
+
+Clear SAH log file (if logging is enabled):
+sah clearlog
 
 Examples:
 Install package/packages from AUR
@@ -423,18 +438,30 @@ Configuration:
 You can edit SAH config file to set up some settings
 SAH config file path: $SAH_config_path
 
-Also you can use 'sah config' to open config file via nano editor
+Also you can use 'sah config' to open SAH config file via nano editor
 
 Supported properties in config:
 logging (true/false) - enable/disable logging
+update_pacman (true/false) - enable/disable updating of Pacman packages
+update_aur (true/false) - enable/disable updating of AUR packages
+aur_update_notify (true/false) - notify about new versions of AUR packages during updating
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
+mirrorlist_country (country code) - mirrors country
+mirrorlist_protocol (http/https) - mirrors protocol
+mirrorlist_ip_version (4/6) - mirrors IP version
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
 pgp_check (true/false) - enable/disable verifying PGP signatures of source files
 needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
 
 Properties examples:
 logging=true
+update_pacman=true
+update_aur=true
+aur_update_notify=false
 aur_update_ignore=yay,dropbox,google-chrome
+mirrorlist_country=RU
+mirrorlist_protocol=http
+mirrorlist_ip_version=4
 rmd=false
 pgp_check=false
 needed=false" | less

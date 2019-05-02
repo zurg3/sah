@@ -62,7 +62,23 @@ Show all packages no longer required as dependencies (orphans)
 .SH OPTIONS
 .B config
 .RS
-Open config file via nano editor
+Open SAH config file via nano editor
+.RE
+.B updateconfig
+.RS
+Update SAH config file from GitHub repo
+.RE
+.B pacconf
+.RS
+Open Pacman config file via nano editor
+.RE
+.B mirrorlist
+.RS
+Open mirrorlist file via nano editor
+.RE
+.B updatemirrors
+.RS
+Update mirrorlist from Arch Linux website
 .RE
 .B changelog
 .RS
@@ -72,13 +88,17 @@ Show SAH changelog
 .RS
 Show SAH log (if logging is enabled)
 .RE
+.B clearlog
+.RS
+Clear SAH log file (if logging is enabled)
+.RE
 .SH CONFIGURATION
 You can edit SAH config file to set up some settings
 .PP
 SAH config file path:
 .B /etc/sah_config
 .PP
-Also you can use 'sah config' to open config file via nano editor
+Also you can use 'sah config' to open SAH config file via nano editor
 .PP
 .B Supported properties in config:
 .PP
@@ -86,9 +106,33 @@ Also you can use 'sah config' to open config file via nano editor
 .RS
 enable/disable logging
 .RE
+.B update_pacman (true/false)
+.RS
+enable/disable updating of Pacman packages
+.RE
+.B update_aur (true/false)
+.RS
+enable/disable updating of AUR packages
+.RE
+.B aur_update_notify (true/false)
+.RS
+notify about new versions of AUR packages during updating
+.RE
 .B aur_update_ignore (package1,package2,...)
 .RS
 skip updating of some AUR packages
+.RE
+.B mirrorlist_country (country code)
+.RS
+mirrors country
+.RE
+.B mirrorlist_protocol (http/https)
+.RS
+mirrors protocol
+.RE
+.B mirrorlist_ip_version (4/6)
+.RS
+mirrors IP version
 .RE
 .B rmd (true/false)
 .RS
@@ -107,7 +151,19 @@ enable/disable reinstalling packages if they are already up-to-date
 .PP
 logging=true
 .PP
+update_pacman=true
+.PP
+update_aur=true
+.PP
+aur_update_notify=false
+.PP
 aur_update_ignore=yay,dropbox,google-chrome
+.PP
+mirrorlist_country=RU
+.PP
+mirrorlist_protocol=http
+.PP
+mirrorlist_ip_version=4
 .PP
 rmd=false
 .PP
@@ -119,6 +175,11 @@ Install package/packages from AUR
 .RS
 .B sah
 -S [package1] [package2] ...
+.RE
+Install package/packages from Pacman
+.RS
+.B sah
+-Sp [package1] [package2] ...
 .RE
 Update installed packages (Pacman + AUR)
 .RS
