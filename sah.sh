@@ -20,6 +20,7 @@ date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 logging_check=$(cat $SAH_config_path | grep "logging" | awk -F "=" '{print $2}')
 
 update_pacman_check=$(cat $SAH_config_path | grep "update_pacman" | awk -F "=" '{print $2}')
+update_aur_check=$(cat $SAH_config_path | grep "update_aur" | awk -F "=" '{print $2}')
 aur_update_notify_check=$(cat $SAH_config_path | grep "aur_update_notify" | awk -F "=" '{print $2}')
 
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
@@ -98,61 +99,76 @@ elif [[ $1 == "-Syu" ]]; then
     ###
   fi
 
-  echo
-  echo "Checking for updates from AUR..."
+  if [[ $update_aur_check == "true" ]]; then
+    echo
+    echo "Checking for updates from AUR..."
 
-  pacman -Qqm > $pkg_list_path
-  pacman -Qm > $pkg_list_path_v
+    pacman -Qqm > $pkg_list_path
+    pacman -Qm > $pkg_list_path_v
 
-  readarray -t pkg_list < $pkg_list_path
-  readarray -t pkg_list_v < $pkg_list_path_v
-  pkgz=${#pkg_list[@]}
-  pkgz_v=${#pkg_list_v[@]}
+    readarray -t pkg_list < $pkg_list_path
+    readarray -t pkg_list_v < $pkg_list_path_v
+    pkgz=${#pkg_list[@]}
+    pkgz_v=${#pkg_list_v[@]}
 
-  aur_update_ignore_count=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | tr ',' '\n' | wc -l)
-  for (( i = 0; i < $aur_update_ignore_count; i++ )); do
-    aur_update_ignore_num=$(($i + 1))
-    aur_update_ignore[$i]=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | awk -F "," "{print \$$aur_update_ignore_num}")
-  done
+    aur_update_ignore_count=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | tr ',' '\n' | wc -l)
+    for (( i = 0; i < $aur_update_ignore_count; i++ )); do
+      aur_update_ignore_num=$(($i + 1))
+      aur_update_ignore[$i]=$(cat $SAH_config_path | grep "aur_update_ignore" | awk -F "=" '{print $2}' | awk -F "," "{print \$$aur_update_ignore_num}")
+    done
 
-  mkdir $PKGBUILDs_path
-  for (( i = 0; i < $pkgz; i++ )); do
-    check_pkg=${pkg_list[$i]}
-    check_pkg_v=${pkg_list_v[$i]}
-    check_pkg_v=$(echo $check_pkg_v | awk '{print $2}')
-    check_pkg_num=$(($i + 1))
+    mkdir $PKGBUILDs_path
+    for (( i = 0; i < $pkgz; i++ )); do
+      check_pkg=${pkg_list[$i]}
+      check_pkg_v=${pkg_list_v[$i]}
+      check_pkg_v=$(echo $check_pkg_v | awk '{print $2}')
+      check_pkg_num=$(($i + 1))
 
-    latest_version_message="-> [$check_pkg_num / $pkgz] $check_pkg - you have the latest version."
-    update_message="-> [$check_pkg_num / $pkgz] Updating $check_pkg..."
-    aur_update_ignore_message="-> [$check_pkg_num / $pkgz] $check_pkg - skipped."
-    aur_update_notify_message="-> [$check_pkg_num / $pkgz] $check_pkg - new version is available."
+      latest_version_message="-> [$check_pkg_num / $pkgz] $check_pkg - you have the latest version."
+      update_message="-> [$check_pkg_num / $pkgz] Updating $check_pkg..."
+      aur_update_ignore_message="-> [$check_pkg_num / $pkgz] $check_pkg - skipped."
+      aur_update_notify_message="-> [$check_pkg_num / $pkgz] $check_pkg - new version is available."
 
-    # Exceptions
-    if [[ $check_pkg != "sah" ]]; then
-      wget_link="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$check_pkg"
-      git_clone_link="https://aur.archlinux.org/$check_pkg.git"
-    elif [[ $check_pkg == "sah" ]]; then
-      wget_link="https://raw.githubusercontent.com/zurg3/$check_pkg/master/PKGBUILD"
-      git_clone_link="https://github.com/zurg3/$check_pkg.git"
-    fi
+      # Exceptions
+      if [[ $check_pkg != "sah" ]]; then
+        wget_link="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$check_pkg"
+        git_clone_link="https://aur.archlinux.org/$check_pkg.git"
+      elif [[ $check_pkg == "sah" ]]; then
+        wget_link="https://raw.githubusercontent.com/zurg3/$check_pkg/master/PKGBUILD"
+        git_clone_link="https://github.com/zurg3/$check_pkg.git"
+      fi
 
-    wget -q $wget_link -O $PKGBUILDs_path/$check_pkg.txt
+      wget -q $wget_link -O $PKGBUILDs_path/$check_pkg.txt
 
-    version_main=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgver" | head -n 1 | awk -F "=" '{print $2}')
-    version_patch=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
-    version_full="$version_main-$version_patch"
+      version_main=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgver" | head -n 1 | awk -F "=" '{print $2}')
+      version_patch=$(cat $PKGBUILDs_path/$check_pkg.txt | grep "pkgrel" | head -n 1 | awk -F "=" '{print $2}')
+      version_full="$version_main-$version_patch"
 
-    if [[ " ${aur_update_ignore[*]} " != *" $check_pkg "* ]]; then
-      if [[ $check_pkg_v == $version_full ]]; then
-        echo "$latest_version_message"
-      elif [[ $check_pkg_v != $version_full ]]; then
-        # Version from PKGBUILD may has the single quotes.
-        echo "$version_full" | grep -q "'"
-        if [[ $? == "0" ]]; then
-          pkgver_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $1}')
-          pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
-          check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
-          if [[ $check_pkg_v_sq != $version_full ]]; then
+      if [[ " ${aur_update_ignore[*]} " != *" $check_pkg "* ]]; then
+        if [[ $check_pkg_v == $version_full ]]; then
+          echo "$latest_version_message"
+        elif [[ $check_pkg_v != $version_full ]]; then
+          # Version from PKGBUILD may has the single quotes.
+          echo "$version_full" | grep -q "'"
+          if [[ $? == "0" ]]; then
+            pkgver_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $1}')
+            pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
+            check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
+            if [[ $check_pkg_v_sq != $version_full ]]; then
+              if [[ $aur_update_notify_check == "true" ]]; then
+                echo "$aur_update_notify_message"
+              elif [[ $aur_update_notify_check == "false" ]]; then
+                echo "$update_message"
+                git clone $git_clone_link
+                cd $check_pkg
+                makepkg $makepkg_type
+                cd ..
+                rm -rf $check_pkg
+              fi
+            elif [[ $check_pkg_v_sq == $version_full ]]; then
+              echo "$latest_version_message"
+            fi
+          elif [[ $? == "1" ]]; then
             if [[ $aur_update_notify_check == "true" ]]; then
               echo "$aur_update_notify_message"
             elif [[ $aur_update_notify_check == "false" ]]; then
@@ -163,33 +179,26 @@ elif [[ $1 == "-Syu" ]]; then
               cd ..
               rm -rf $check_pkg
             fi
-          elif [[ $check_pkg_v_sq == $version_full ]]; then
-            echo "$latest_version_message"
-          fi
-        elif [[ $? == "1" ]]; then
-          if [[ $aur_update_notify_check == "true" ]]; then
-            echo "$aur_update_notify_message"
-          elif [[ $aur_update_notify_check == "false" ]]; then
-            echo "$update_message"
-            git clone $git_clone_link
-            cd $check_pkg
-            makepkg $makepkg_type
-            cd ..
-            rm -rf $check_pkg
           fi
         fi
+      elif [[ " ${aur_update_ignore[*]} " == *" $check_pkg "* ]]; then
+        echo "$aur_update_ignore_message"
       fi
-    elif [[ " ${aur_update_ignore[*]} " == *" $check_pkg "* ]]; then
-      echo "$aur_update_ignore_message"
-    fi
-  done
-  ###
-  exit_code=$?
+    done
+    ###
+    exit_code=$?
+    ###
+    rm $pkg_list_path
+    rm $pkg_list_path_v
+    rm -rf $PKGBUILDs_path
+  elif [[ $update_aur_check == "false" ]]; then
+    echo
+    echo "Updating of AUR packages is disabled."
+    ###
+    exit_code=$?
+    ###
+  fi
   sah_logging $@
-  ###
-  rm $pkg_list_path
-  rm $pkg_list_path_v
-  rm -rf $PKGBUILDs_path
 # SAH Clean
 elif [[ $1 == "-Sc" ]]; then
   sudo pacman -Sc
