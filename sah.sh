@@ -194,7 +194,8 @@ elif [[ $1 == "-Rs" ]]; then
   ###
 # SAH Installed All
 elif [[ $1 == "-Qe" ]]; then
-  echo "Installed packages (All):"
+  query_pkg_count=$(pacman -Qe | wc -l)
+  echo "Installed packages (All) [$query_pkg_count packages]:"
   pacman -Qe
   ###
   exit_code=$?
@@ -202,7 +203,8 @@ elif [[ $1 == "-Qe" ]]; then
   ###
 # SAH Installed AUR
 elif [[ $1 == "-Qm" ]]; then
-  echo "Installed packages (AUR):"
+  query_pkg_count=$(pacman -Qm | wc -l)
+  echo "Installed packages (AUR) [$query_pkg_count packages]:"
   pacman -Qm
   ###
   exit_code=$?
@@ -238,6 +240,8 @@ elif [[ $1 == "-Qi" ]]; then
   ###
 # SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
+  query_pkg_count=$(pacman -Qdt | wc -l)
+  echo "Packages no longer required as dependencies (orphans) [$query_pkg_count packages]"
   pacman -Qdt
   ###
   exit_code=$?
