@@ -288,6 +288,14 @@ elif [[ $1 == "config" ]]; then
   exit_code=$?
   sah_logging $@
   ###
+# SAH Update Config
+elif [[ $1 == "updateconfig" ]]; then
+  sudo curl -s "https://raw.githubusercontent.com/zurg3/sah/v$VERSION/sah_config_default" -o $SAH_config_path
+  sudo nano $SAH_config_path
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Pacman Config
 elif [[ $1 == "pacconf" ]]; then
   sudo nano $pacman_config_path
@@ -295,12 +303,14 @@ elif [[ $1 == "pacconf" ]]; then
   exit_code=$?
   sah_logging $@
   ###
+# SAH Pacman Mirrorlist
 elif [[ $1 == "mirrorlist" ]]; then
   sudo nano $mirrorlist_path
   ###
   exit_code=$?
   sah_logging $@
   ###
+# SAH Pacman Update Mirrors
 elif [[ $1 == "updatemirrors" ]]; then
   sudo curl -s "https://www.archlinux.org/mirrorlist/?country=$mirrorlist_country&protocol=$mirrorlist_protocol&ip_version=$mirrorlist_ip_version" -o $mirrorlist_path
   sudo nano $mirrorlist_path
@@ -326,6 +336,7 @@ elif [[ $1 == "log" ]]; then
   elif [[ $logging_check == "false" ]]; then
     echo "Logging is disabled."
   fi
+# SAH Clear Log
 elif [[ $1 == "clearlog" ]]; then
   if [[ $logging_check == "true" ]]; then
     > $SAH_log_file_path
