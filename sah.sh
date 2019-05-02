@@ -353,6 +353,7 @@ Dependencies:
 - less
 - nano
 - bash-completion
+- curl
 
 Show SAH changelog:
 sah changelog
