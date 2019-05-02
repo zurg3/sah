@@ -1,1 +1,1 @@
-complete -W "config changelog log debug" sah
+complete -W "config pacconf changelog log debug" sah
