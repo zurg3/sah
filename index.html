@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Simple AUR Helper (SAH)</title>
+  </head>
+  <body>
+    <h1 id="simple-aur-helper-sah">Simple AUR Helper (SAH)</h1>
+    <p><strong>Author:</strong> zurg3 (Stepan Skryabin)</p>
+    <p><strong>Created:</strong> 12.02.2019</p>
+    <p><strong>License:</strong> GNU GPL v3</p>
+    <p><strong>Changelog</strong> is <a href="https://github.com/zurg3/sah/blob/master/changelog.txt">here</a></p>
+    <p><strong>Version history</strong> is <a href="https://github.com/zurg3/sah/blob/master/version_history.md">here</a></p>
+    <h2 id="some-notes">Some notes:</h2>
+    <ul>
+    <li><a href="https://github.com/zurg3/sah/issues">Issues</a> and <a href="https://github.com/zurg3/sah/pulls">Pull Requests</a> are welcome.</li>
+    <li>If this repository will get at least 10 stars, I'll add the PKGBUILD to AUR.</li>
+    </ul>
+    <h2 id="dependencies">Dependencies:</h2>
+    <ul>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/bash/">bash</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/sudo/">sudo</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/pacman/">pacman</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/coreutils/">coreutils</a></li>
+    <li><a href="https://www.archlinux.org/packages/extra/x86_64/git/">git</a></li>
+    <li><a href="https://www.archlinux.org/packages/extra/x86_64/wget/">wget</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/grep/">grep</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/less/">less</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/nano/">nano</a></li>
+    <li><a href="https://www.archlinux.org/packages/extra/any/bash-completion/">bash-completion</a></li>
+    <li><a href="https://www.archlinux.org/packages/core/x86_64/curl/">curl</a></li>
+    </ul>
+    <h2 id="installation">Installation:</h2>
+    <pre><code>$ git clone https://github.com/zurg3/sah.git
+$ cd sah
+$ makepkg -si
+$ cd ..
+$ rm -rf sah</code></pre>
+    <h2 id="update-sah-config-file-from-github-repo">Update SAH config file from GitHub repo:</h2>
+    <pre><code>$ sah updateconfig</code></pre>
+    <h2 id="open-pacman-config-file-via-nano-editor">Open Pacman config file via nano editor:</h2>
+    <pre><code>$ sah pacconf</code></pre>
+    <h2 id="open-mirrorlist-file-via-nano-editor">Open mirrorlist file via nano editor:</h2>
+    <pre><code>$ sah mirrorlist</code></pre>
+    <h2 id="update-mirrorlist-from-arch-linux-website">Update mirrorlist from Arch Linux website:</h2>
+    <pre><code>$ sah updatemirrors</code></pre>
+    <h2 id="show-sah-changelog">Show SAH changelog:</h2>
+    <pre><code>$ sah changelog</code></pre>
+    <h2 id="show-sah-log-if-logging-is-enabled">Show SAH log (if logging is enabled):</h2>
+    <pre><code>$ sah log</code></pre>
+    <h2 id="clear-sah-log-file-if-logging-is-enabled">Clear SAH log file (if logging is enabled):</h2>
+    <pre><code>$ sah clearlog</code></pre>
+    <h2 id="examples">Examples:</h2>
+    <p>Install package/packages from AUR</p>
+    <pre><code>$ sah -S [package1] [package2] ...</code></pre>
+    <p>Install package/packages from Pacman</p>
+    <pre><code>$ sah -Sp [package1] [package2] ...</code></pre>
+    <p>Update installed packages (Pacman + AUR)</p>
+    <pre><code>$ sah -Syu</code></pre>
+    <p>Clean the package cache</p>
+    <pre><code>$ sah -Sc</code></pre>
+    <p>Remove package/packages</p>
+    <pre><code>$ sah -R [package1] [package2] ...</code></pre>
+    <p>Remove package/packages with dependencies which aren't required by any other installed packages</p>
+    <pre><code>$ sah -Rs [package1] [package2] ...</code></pre>
+    <p>Show installed packages (All)</p>
+    <pre><code>$ sah -Qe</code></pre>
+    <p>Show installed packages (AUR)</p>
+    <pre><code>$ sah -Qm</code></pre>
+    <p>Search for packages in the database</p>
+    <pre><code>$ sah -Ss [package]</code></pre>
+    <p>Search for already installed packages</p>
+    <pre><code>$ sah -Qs [package]</code></pre>
+    <p>Show information about package</p>
+    <pre><code>$ sah -Si [package]</code></pre>
+    <p>Show information about package (for locally installed packages)</p>
+    <pre><code>$ sah -Qi [package]</code></pre>
+    <p>Show all packages no longer required as dependencies (orphans)</p>
+    <pre><code>$ sah -Qdt</code></pre>
+    <h2 id="configuration">Configuration:</h2>
+    <p>You can edit SAH config file to set up some settings</p>
+    <p>SAH config file path: <strong>/etc/sah_config</strong></p>
+    <p>Also you can use</p>
+    <pre><code>$ sah config</code></pre>
+    <p>to open SAH config file via nano editor</p>
+    <h3 id="supported-properties-in-config">Supported properties in config</h3>
+    <table>
+    <colgroup>
+    <col style="width: 25%" />
+    <col style="width: 38%" />
+    <col style="width: 35%" />
+    </colgroup>
+    <thead>
+    <tr class="header">
+    <th>Property</th>
+    <th>Value/Values</th>
+    <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+    <td>logging</td>
+    <td>true/false</td>
+    <td>enable/disable logging</td>
+    </tr>
+    <tr class="even">
+    <td>update_pacman</td>
+    <td>true/false</td>
+    <td>enable/disable updating of Pacman packages</td>
+    </tr>
+    <tr class="odd">
+    <td>update_aur</td>
+    <td>true/false</td>
+    <td>enable/disable updating of AUR packages</td>
+    </tr>
+    <tr class="even">
+    <td>aur_update_notify</td>
+    <td>true/false</td>
+    <td>notify about new versions of AUR packages during updating</td>
+    </tr>
+    <tr class="odd">
+    <td>aur_update_ignore</td>
+    <td>package1,package2,…</td>
+    <td>skip updating of some AUR packages</td>
+    </tr>
+    <tr class="even">
+    <td>mirrorlist_country</td>
+    <td>country code</td>
+    <td>mirrors country</td>
+    </tr>
+    <tr class="odd">
+    <td>mirrorlist_protocol</td>
+    <td>http/https</td>
+    <td>mirrors protocol</td>
+    </tr>
+    <tr class="even">
+    <td>mirrorlist_ip_version</td>
+    <td>4/6</td>
+    <td>mirrors IP version</td>
+    </tr>
+    <tr class="odd">
+    <td>rmd</td>
+    <td>true/false</td>
+    <td>remove make dependencies of AUR packages during installation or updating</td>
+    </tr>
+    <tr class="even">
+    <td>pgp_check</td>
+    <td>true/false</td>
+    <td>enable/disable verifying PGP signatures of source files</td>
+    </tr>
+    <tr class="odd">
+    <td>needed</td>
+    <td>true/false</td>
+    <td>enable/disable reinstalling packages if they are already up-to-date</td>
+    </tr>
+    </tbody>
+    </table>
+    <h3 id="properties-examples">Properties examples:</h3>
+    <p>logging=<em>true</em></p>
+    <p>update_pacman=<em>true</em></p>
+    <p>update_aur=<em>true</em></p>
+    <p>aur_update_notify=<em>false</em></p>
+    <p>aur_update_ignore=<em>yay,dropbox,google-chrome</em></p>
+    <p>mirrorlist_country=<em>RU</em></p>
+    <p>mirrorlist_protocol=<em>http</em></p>
+    <p>mirrorlist_ip_version=<em>4</em></p>
+    <p>rmd=<em>false</em></p>
+    <p>pgp_check=<em>false</em></p>
+    <p>needed=<em>false</em></p>
+  </body>
+</html>
