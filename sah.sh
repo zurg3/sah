@@ -18,6 +18,7 @@ date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 
 # Reading config options
 logging_check=$(cat $SAH_config_path | grep "logging" | awk -F "=" '{print $2}')
+aur_update_notify_check=$(cat $SAH_config_path | grep "aur_update_notify" | awk -F "=" '{print $2}')
 
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
 pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
@@ -115,6 +116,7 @@ elif [[ $1 == "-Syu" ]]; then
     latest_version_message="-> [$check_pkg_num / $pkgz] $check_pkg - you have the latest version."
     update_message="-> [$check_pkg_num / $pkgz] Updating $check_pkg..."
     aur_update_ignore_message="-> [$check_pkg_num / $pkgz] $check_pkg - skipped."
+    aur_update_notify_message="-> [$check_pkg_num / $pkgz] $check_pkg - new version is available."
 
     # Exceptions
     if [[ $check_pkg != "sah" ]]; then
@@ -142,22 +144,30 @@ elif [[ $1 == "-Syu" ]]; then
           pkgrel_sq=$(echo "$check_pkg_v" | awk -F "-" '{print $2}')
           check_pkg_v_sq="'$pkgver_sq'-'$pkgrel_sq'"
           if [[ $check_pkg_v_sq != $version_full ]]; then
+            if [[ $aur_update_notify_check == "true" ]]; then
+              echo "$aur_update_notify_message"
+            elif [[ $aur_update_notify_check == "false" ]]; then
+              echo "$update_message"
+              git clone $git_clone_link
+              cd $check_pkg
+              makepkg $makepkg_type
+              cd ..
+              rm -rf $check_pkg
+            fi
+          elif [[ $check_pkg_v_sq == $version_full ]]; then
+            echo "$latest_version_message"
+          fi
+        elif [[ $? == "1" ]]; then
+          if [[ $aur_update_notify_check == "true" ]]; then
+            echo "$aur_update_notify_message"
+          elif [[ $aur_update_notify_check == "false" ]]; then
             echo "$update_message"
             git clone $git_clone_link
             cd $check_pkg
             makepkg $makepkg_type
             cd ..
             rm -rf $check_pkg
-          elif [[ $check_pkg_v_sq == $version_full ]]; then
-            echo "$latest_version_message"
           fi
-        elif [[ $? == "1" ]]; then
-          echo "$update_message"
-          git clone $git_clone_link
-          cd $check_pkg
-          makepkg $makepkg_type
-          cd ..
-          rm -rf $check_pkg
         fi
       fi
     elif [[ " ${aur_update_ignore[*]} " == *" $check_pkg "* ]]; then
