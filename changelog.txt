@@ -1,3 +1,16 @@
+v0.6 (02.05.2019)
+- New features:
+  - Notify about new versions of AUR packages during updating
+  - Disable updating of Pacman packages
+  - Disable updating of AUR packages
+  - Open Pacman config file via nano editor
+  - Open mirrorlist file via nano editor
+  - Update mirrorlist from Arch Linux website
+  - Clear SAH log file
+  - Update SAH config file from GitHub repo
+- Show count of query results (-Qe/-Qm/-Qdt)
+- Added index.html for GitHub Pages
+
 v0.5.4 (27.04.2019)
 - Fixed SAH man page
 
