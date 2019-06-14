@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### Simple AUR Helper (SAH)
+### Simple AUR Helper (SAH) and Pacman wrapper
 VERSION="0.6"
 
 ##### Settings
@@ -411,14 +411,14 @@ elif [[ $1 == "clearlog" ]]; then
   fi
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
-  echo "Simple AUR Helper (SAH) v$VERSION"
+  echo "Simple AUR Helper (SAH) and Pacman wrapper v$VERSION"
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Help
 elif [[ $1 == "" || $1 == "--help" || $1 == "-h" ]]; then
-  echo "Simple AUR Helper (SAH)
+  echo "Simple AUR Helper (SAH) and Pacman wrapper
 
 Version: $VERSION
 Author: zurg3 (Stepan Skryabin)

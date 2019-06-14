@@ -1,4 +1,4 @@
-# Simple AUR Helper (SAH)
+# Simple AUR Helper (SAH) and Pacman wrapper
 
 **Author:** zurg3 (Stepan Skryabin)
 

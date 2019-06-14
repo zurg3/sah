@@ -2,7 +2,7 @@
 pkgname=sah
 pkgver=0.6
 pkgrel=1
-pkgdesc="Simple AUR Helper (SAH)"
+pkgdesc="Simple AUR Helper (SAH) and Pacman wrapper"
 arch=('any')
 url="https://github.com/zurg3/sah"
 license=('GPLv3')
