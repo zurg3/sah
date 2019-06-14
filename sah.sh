@@ -90,6 +90,13 @@ elif [[ $1 == "-Sp" ]]; then
   exit_code=$?
   sah_logging $@
   ###
+# SAH Update Package Database
+elif [[ $1 == "-Syy" ]]; then
+  sudo pacman -Syy
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Update
 elif [[ $1 == "-Syu" ]]; then
   if [[ $update_pacman_check == "true" ]]; then
@@ -400,6 +407,9 @@ sah -S [package1] [package2] ...
 
 Install package/packages from Pacman
 sah -Sp [package1] [package2] ...
+
+Update package database
+sah -Syy
 
 Update installed packages (Pacman + AUR)
 sah -Syu

@@ -82,6 +82,11 @@ Install package/packages from Pacman
 $ sah -Sp [package1] [package2] ...
 ```
 
+Update package database
+```
+$ sah -Syy
+```
+
 Update installed packages (Pacman + AUR)
 ```
 $ sah -Syu
