@@ -66,7 +66,7 @@ sah_logging() {
 ##### Main code
 
 # SAH Install
-if [[ $1 == "-S" ]]; then
+if [[ $1 == "-S" || $1 == "install" ]]; then
   aur_pkg_range="${@:2}"
   for aur_pkg in $aur_pkg_range
   do
@@ -98,14 +98,14 @@ elif [[ $1 == "-U" ]]; then
   sah_logging $@
   ###
 # SAH Update Package Database
-elif [[ $1 == "-Syy" ]]; then
+elif [[ $1 == "-Syy" || $1 == "update" ]]; then
   sudo pacman -Syy
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Update
-elif [[ $1 == "-Syu" ]]; then
+elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
   if [[ $update_pacman_check == "true" ]]; then
     echo "Checking for updates from Pacman..."
     sudo pacman -Syu
@@ -220,21 +220,21 @@ elif [[ $1 == "-Syu" ]]; then
   fi
   sah_logging $@
 # SAH Clean
-elif [[ $1 == "-Sc" ]]; then
+elif [[ $1 == "-Sc" || $1 == "autoremove" ]]; then
   sudo pacman -Sc
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Remove
-elif [[ $1 == "-R" ]]; then
+elif [[ $1 == "-R" || $1 == "remove" ]]; then
   sudo pacman -R ${@:2}
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Remove With Dependencies
-elif [[ $1 == "-Rs" ]]; then
+elif [[ $1 == "-Rs" || $1 == "purge" ]]; then
   sudo pacman -Rs ${@:2}
   ###
   exit_code=$?
@@ -416,6 +416,7 @@ Clear SAH log file (if logging is enabled):
 sah clearlog
 
 Examples:
+Pacman-style:
 Install package/packages from AUR
 sah -S [package1] [package2] ...
 
@@ -463,6 +464,25 @@ sah -Qdt
 
 Execute custom Pacman operation
 sah custom [operation]
+
+APT-style:
+Install package/packages from AUR
+sah install [package1] [package2] ...
+
+Update package database
+sah update
+
+Update installed packages (Pacman + AUR)
+sah upgrade
+
+Clean the package cache
+sah autoremove
+
+Remove package/packages
+sah remove [package1] [package2] ...
+
+Remove package/packages with dependencies which aren't required by any other installed packages
+sah purge [package1] [package2] ...
 
 Configuration:
 You can edit SAH config file to set up some settings

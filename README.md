@@ -72,6 +72,7 @@ $ sah clearlog
 ```
 
 ## Examples:
+### Pacman-style:
 Install package/packages from AUR
 ```
 $ sah -S [package1] [package2] ...
@@ -150,6 +151,37 @@ $ sah -Qdt
 Execute custom Pacman operation
 ```
 $ sah custom [operation]
+```
+
+### APT-style:
+Install package/packages from AUR
+```
+$ sah install [package1] [package2] ...
+```
+
+Update package database
+```
+$ sah update
+```
+
+Update installed packages (Pacman + AUR)
+```
+$ sah upgrade
+```
+
+Clean the package cache
+```
+$ sah autoremove
+```
+
+Remove package/packages
+```
+$ sah remove [package1] [package2] ...
+```
+
+Remove package/packages with dependencies which aren't required by any other installed packages
+```
+$ sah purge [package1] [package2] ...
 ```
 
 ## Configuration:

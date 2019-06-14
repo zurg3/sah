@@ -7,7 +7,7 @@ Simple AUR Helper (SAH)
 .SH DESCRIPTION
 Simple AUR Helper
 .SH OPERATIONS
-.B -S
+.B -S, install
 .RS
 Install package/packages from AUR
 .RE
@@ -19,23 +19,23 @@ Install package/packages from Pacman
 .RS
 Install local or remote package
 .RE
-.B -Syy
+.B -Syy, update
 .RS
 Update package database
 .RE
-.B -Syu
+.B -Syu, upgrade
 .RS
 Update installed packages (Pacman + AUR)
 .RE
-.B -Sc
+.B -Sc, autoremove
 .RS
 Clean the package cache
 .RE
-.B -R
+.B -R, remove
 .RS
 Remove package/packages
 .RE
-.B -Rs
+.B -Rs, purge
 .RS
 Remove package/packages with dependencies which aren't required by any other installed packages
 .RE
