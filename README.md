@@ -82,6 +82,11 @@ Install package/packages from Pacman
 $ sah -Sp [package1] [package2] ...
 ```
 
+Install local or remote package
+```
+$ sah -U [package]
+```
+
 Update package database
 ```
 $ sah -Syy

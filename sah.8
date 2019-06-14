@@ -15,6 +15,10 @@ Install package/packages from AUR
 .RS
 Install package/packages from Pacman
 .RE
+.B -U
+.RS
+Install local or remote package
+.RE
 .B -Syy
 .RS
 Update package database
@@ -184,6 +188,16 @@ Install package/packages from Pacman
 .RS
 .B sah
 -Sp [package1] [package2] ...
+.RE
+Install local package
+.RS
+.B sah
+-U /path/to/package/package_name-version.pkg.tar.xz
+.RE
+Install remote package
+.RS
+.B sah
+-U https://www.example.com/repo/example.pkg.tar.xz
 .RE
 Update installed packages (Pacman + AUR)
 .RS

@@ -90,6 +90,13 @@ elif [[ $1 == "-Sp" ]]; then
   exit_code=$?
   sah_logging $@
   ###
+# SAH Install Local/Remote Package
+elif [[ $1 == "-U" ]]; then
+  sudo pacman -U $2
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Update Package Database
 elif [[ $1 == "-Syy" ]]; then
   sudo pacman -Syy
@@ -407,6 +414,9 @@ sah -S [package1] [package2] ...
 
 Install package/packages from Pacman
 sah -Sp [package1] [package2] ...
+
+Install local or remote package
+sah -U [package]
 
 Update package database
 sah -Syy
