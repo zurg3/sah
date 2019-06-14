@@ -55,6 +55,18 @@ elif [[ $needed_check == "true" ]]; then
   makepkg_type="$makepkg_type --needed"
 fi
 
+# AUR TOP-10 Packages
+aur_top=(yay
+spotify
+discord
+aurvote
+visual-studio-code-bin
+tor-browser
+google-chrome
+polybar
+freecad
+pikaur)
+
 ##### Functions
 
 sah_logging() {
@@ -346,6 +358,38 @@ elif [[ $1 == "changelog" ]]; then
   exit_code=$?
   sah_logging $@
   ###
+# SAH AUR TOP Packages
+elif [[ $1 == "top" ]]; then
+  if [[ $2 == "" ]]; then
+    aur_top_num=1
+    echo "TOP-10 popular AUR packages (updated on 14.06.2019):"
+    for (( i = 0; i < 10; i++ )); do
+      echo "$aur_top_num. ${aur_top[$i]}"
+      aur_top_num=$(($aur_top_num + 1))
+    done
+    ###
+    exit_code=$?
+    sah_logging $@
+    ###
+  elif [[ $2 != "" ]]; then
+    aur_top_install=$(($2 - 1))
+    aur_pkg=${aur_top[$aur_top_install]}
+    ###
+    exit_code=$?
+    ###
+    git clone https://aur.archlinux.org/$aur_pkg.git
+    cd $aur_pkg
+    echo "Installing $aur_pkg..."
+    makepkg $makepkg_type
+    ###
+    exit_code=$?
+    ###
+    cd ..
+    rm -rf $aur_pkg
+    ###
+    sah_logging $@
+    ###
+  fi
 # SAH Log
 elif [[ $1 == "log" ]]; then
   if [[ $logging_check == "true" ]]; then
@@ -408,6 +452,12 @@ sah updatemirrors
 
 Show SAH changelog:
 sah changelog
+
+Show AUR TOP-10 packages:
+sah top
+
+Install package from AUR TOP-10:
+sah top [1-10]
 
 Show SAH log (if logging is enabled):
 sah log

@@ -96,6 +96,14 @@ Update mirrorlist from Arch Linux website
 .RS
 Show SAH changelog
 .RE
+.B top
+.RS
+Show AUR TOP-10 packages
+.RE
+.B top [1-10]
+.RS
+Install package from AUR TOP-10
+.RE
 .B log
 .RS
 Show SAH log (if logging is enabled)
@@ -217,6 +225,11 @@ Execute custom Pacman operation (-Syu and install a package)
 .RS
 .B sah
 custom -Syu chromium
+.RE
+Install package from AUR TOP-10 (7th)
+.RS
+.B sah
+top 7
 .RE
 .SH AUTHOR
 Stepan Skryabin

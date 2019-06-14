@@ -61,6 +61,16 @@ $ sah updatemirrors
 $ sah changelog
 ```
 
+## Show AUR TOP-10 packages:
+```
+$ sah top
+```
+
+## Install package from AUR TOP-10:
+```
+$ sah top [1-10]
+```
+
 ## Show SAH log (if logging is enabled):
 ```
 $ sah log
