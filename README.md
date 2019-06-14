@@ -147,6 +147,11 @@ Show all packages no longer required as dependencies (orphans)
 $ sah -Qdt
 ```
 
+Execute custom Pacman operation
+```
+$ sah custom [operation]
+```
+
 ## Configuration:
 You can edit SAH config file to set up some settings
 

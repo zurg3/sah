@@ -295,6 +295,13 @@ elif [[ $1 == "-Qdt" ]]; then
   exit_code=$?
   sah_logging $@
   ###
+# SAH Custom Pacman Operation
+elif [[ $1 == "custom" ]]; then
+  sudo pacman ${@:2}
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Config
 elif [[ $1 == "config" ]]; then
   sudo nano $SAH_config_path
@@ -453,6 +460,9 @@ sah -Qi [package]
 
 Show all packages no longer required as dependencies (orphans)
 sah -Qdt
+
+Execute custom Pacman operation
+sah custom [operation]
 
 Configuration:
 You can edit SAH config file to set up some settings
