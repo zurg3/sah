@@ -1,4 +1,5 @@
 # SAH version history
+- [v0.7](https://raw.githubusercontent.com/zurg3/sah/v0.7/sah.sh)
 - [v0.6](https://raw.githubusercontent.com/zurg3/sah/v0.6/sah.sh)
 - [v0.5.4](https://raw.githubusercontent.com/zurg3/sah/v0.5.4/sah.sh)
 - [v0.5.3](https://raw.githubusercontent.com/zurg3/sah/v0.5.3/sah.sh)

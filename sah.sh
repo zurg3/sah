@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ### Simple AUR Helper (SAH) and Pacman wrapper
-VERSION="0.6"
+VERSION="0.7"
 
 ##### Settings
 
