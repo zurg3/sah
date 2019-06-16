@@ -518,6 +518,7 @@ Dependencies:
 - nano
 - bash-completion
 - curl
+- sed
 
 Reset to default SAH config file from GitHub repo:
 sah resetconfig

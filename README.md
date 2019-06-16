@@ -26,6 +26,7 @@
 - [nano](https://www.archlinux.org/packages/core/x86_64/nano/)
 - [bash-completion](https://www.archlinux.org/packages/extra/any/bash-completion/)
 - [curl](https://www.archlinux.org/packages/core/x86_64/curl/)
+- [sed](https://www.archlinux.org/packages/core/x86_64/sed/)
 
 ## Installation:
 ```
