@@ -93,6 +93,11 @@ Install package/packages from Pacman
 $ sah -Sp [package1] [package2] ...
 ```
 
+Install packages from file with list of packages (AUR)
+```
+$ sah -Sf [file]
+```
+
 Install local or remote package
 ```
 $ sah -U [package]
