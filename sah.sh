@@ -321,8 +321,8 @@ elif [[ $1 == "config" ]]; then
   exit_code=$?
   sah_logging $@
   ###
-# SAH Update Config
-elif [[ $1 == "updateconfig" ]]; then
+# SAH Reset Config
+elif [[ $1 == "resetconfig" ]]; then
   sudo curl -s "https://raw.githubusercontent.com/zurg3/sah/v$VERSION/sah_config_default" -o $SAH_config_path
   sudo nano $SAH_config_path
   ###
@@ -438,8 +438,8 @@ Dependencies:
 - bash-completion
 - curl
 
-Update SAH config file from GitHub repo:
-sah updateconfig
+Reset to default SAH config file from GitHub repo:
+sah resetconfig
 
 Open Pacman config file via nano editor:
 sah pacconf

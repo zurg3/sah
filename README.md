@@ -36,9 +36,9 @@ $ cd ..
 $ rm -rf sah
 ```
 
-## Update SAH config file from GitHub repo:
+## Reset to default SAH config file from GitHub repo:
 ```
-$ sah updateconfig
+$ sah resetconfig
 ```
 
 ## Open Pacman config file via nano editor:
