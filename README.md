@@ -98,6 +98,11 @@ Install packages from file with list of packages (AUR)
 $ sah -Sf [file]
 ```
 
+Install packages from file with list of packages (Pacman)
+```
+$ sah -Spf [file]
+```
+
 Install local or remote package
 ```
 $ sah -U [package]

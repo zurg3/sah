@@ -148,6 +148,41 @@ elif [[ $1 == "-Sf" ]]; then
   ###
   sah_logging $@
   ###
+# SAH Install Pacman Package List
+elif [[ $1 == "-Spf" ]]; then
+  if [[ $2 == "" ]]; then
+    read -e -p "Enter the path to the file with list of packages for installation (Pacman): " install_pkg_list
+    ###
+    exit_code=$?
+    ###
+  elif [[ $2 != "" ]]; then
+    install_pkg_list=$2
+    ###
+    exit_code=$?
+    ###
+  fi
+
+  list_items_count=$(cat $install_pkg_list | wc -l)
+  ###
+  exit_code=$?
+  ###
+  list_line=1
+  pkg_string=""
+  for (( i = 0; i < $list_items_count; i++ )); do
+    list_item=$(sed -n ${list_line}p $install_pkg_list)
+    if [[ $i == 0 ]]; then
+      pkg_string="$list_item"
+    else
+      pkg_string="$pkg_string $list_item"
+    fi
+    list_line=$(($list_line + 1))
+  done
+
+  sudo pacman -S $pkg_string
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
 # SAH Install Local/Remote Package
 elif [[ $1 == "-U" ]]; then
   sudo pacman -U $2
@@ -521,6 +556,9 @@ sah -Sp [package1] [package2] ...
 
 Install packages from file with list of packages (AUR)
 sah -Sf [file]
+
+Install packages from file with list of packages (Pacman)
+sah -Spf [file]
 
 Install local or remote package
 sah -U [package]
