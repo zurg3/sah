@@ -60,11 +60,11 @@ aur_top=(yay
 spotify
 discord
 aurvote
+polybar
 visual-studio-code-bin
 tor-browser
-google-chrome
-polybar
 freecad
+google-chrome
 pikaur)
 
 ##### Functions
@@ -362,7 +362,7 @@ elif [[ $1 == "changelog" ]]; then
 elif [[ $1 == "top" ]]; then
   if [[ $2 == "" ]]; then
     aur_top_num=1
-    echo "TOP-10 popular AUR packages (updated on 14.06.2019):"
+    echo "TOP-10 popular AUR packages (updated on 16.06.2019):"
     for (( i = 0; i < 10; i++ )); do
       echo "$aur_top_num. ${aur_top[$i]}"
       aur_top_num=$(($aur_top_num + 1))
