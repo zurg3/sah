@@ -13,3 +13,4 @@ mirrorlist_ip_version=4
 rmd=false
 pgp_check=false
 needed=false
+noconfirm=false

@@ -230,6 +230,7 @@ to open SAH config file via nano editor
 | rmd | true/false | remove make dependencies of AUR packages during installation or updating |
 | pgp_check | true/false | enable/disable verifying PGP signatures of source files |
 | needed | true/false | enable/disable reinstalling packages if they are already up-to-date |
+| noconfirm | true/false | enable/disable waiting for user input before proceeding with operations |
 
 ### Properties examples:
 logging=*true*
@@ -253,3 +254,5 @@ rmd=*false*
 pgp_check=*false*
 
 needed=*false*
+
+noconfirm=*false*

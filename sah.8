@@ -174,6 +174,10 @@ enable/disable verifying PGP signatures of source files
 .RS
 enable/disable reinstalling packages if they are already up-to-date
 .RE
+.B noconfirm (true/false)
+.RS
+enable/disable waiting for user input before proceeding with operations
+.RE
 .PP
 .B Properties examples:
 .PP
@@ -198,6 +202,8 @@ rmd=false
 pgp_check=false
 .PP
 needed=false
+.PP
+noconfirm=false
 .SH EXAMPLES
 Install package/packages from AUR
 .RS

@@ -32,6 +32,7 @@ mirrorlist_ip_version=$(cat $SAH_config_path | grep "mirrorlist_ip_version" | aw
 rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
 pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
 needed_check=$(cat $SAH_config_path | grep "needed" | awk -F "=" '{print $2}')
+noconfirm_check=$(cat $SAH_config_path | grep "noconfirm" | awk -F "=" '{print $2}')
 
 # Remove make dependencies (-si/-sir)
 if [[ $rmd_check == "false" ]]; then
@@ -53,6 +54,14 @@ if [[ $needed_check == "false" ]]; then
   makepkg_type="$makepkg_type"
 elif [[ $needed_check == "true" ]]; then
   makepkg_type="$makepkg_type --needed"
+fi
+
+# No confirm (--noconfirm)
+# Don't wait for user input before proceeding with operations
+if [[ $noconfirm_check == "false" ]]; then
+  makepkg_type="$makepkg_type"
+elif [[ $noconfirm_check == "true" ]]; then
+  makepkg_type="$makepkg_type --noconfirm"
 fi
 
 # AUR TOP-10 Packages
@@ -618,6 +627,7 @@ mirrorlist_ip_version (4/6) - mirrors IP version
 rmd (true/false) - remove make dependencies of AUR packages during installation or updating
 pgp_check (true/false) - enable/disable verifying PGP signatures of source files
 needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
+noconfirm (true/false) - enable/disable waiting for user input before proceeding with operations
 
 Properties examples:
 logging=true
@@ -630,7 +640,8 @@ mirrorlist_protocol=http
 mirrorlist_ip_version=4
 rmd=false
 pgp_check=false
-needed=false" | less
+needed=false
+noconfirm=false" | less
 ###
 exit_code=$?
 sah_logging $@
