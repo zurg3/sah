@@ -103,9 +103,14 @@ elif [[ $1 == "-Sp" ]]; then
   sah_logging $@
   ###
 # SAH Install Package List
-elif [[ $1 == "-Sf" ]]; then
+elif [[ $1 == "-Sf" || $1 == "-Spf" ]]; then
   if [[ $2 == "" ]]; then
-    read -e -p "Enter the path to the file with list of packages for installation (AUR): " install_pkg_list
+    if [[ $1 == "-Sf" ]]; then
+      install_package_list_message="Enter the path to the file with list of packages for installation (AUR): "
+    elif [[ $1 == "-Spf" ]]; then
+      install_package_list_message="Enter the path to the file with list of packages for installation (Pacman): "
+    fi
+    read -e -p "$install_package_list_message" install_pkg_list
     ###
     exit_code=$?
     ###
@@ -132,57 +137,30 @@ elif [[ $1 == "-Sf" ]]; then
     list_line=$(($list_line + 1))
   done
 
-  aur_pkg_range=$pkg_string
-  for aur_pkg in $aur_pkg_range
-  do
-    git clone https://aur.archlinux.org/$aur_pkg.git
-    cd $aur_pkg
-    echo "Installing $aur_pkg..."
-    makepkg $makepkg_type
+  if [[ $1 == "-Sf" ]]; then
+    aur_pkg_range=$pkg_string
+    for aur_pkg in $aur_pkg_range
+    do
+      git clone https://aur.archlinux.org/$aur_pkg.git
+      cd $aur_pkg
+      echo "Installing $aur_pkg..."
+      makepkg $makepkg_type
+      ###
+      exit_code=$?
+      ###
+      cd ..
+      rm -rf $aur_pkg
+    done
+    ###
+    sah_logging $@
+    ###
+  elif [[ $1 == "-Spf" ]]; then
+    sudo pacman -S $pkg_string
     ###
     exit_code=$?
-    ###
-    cd ..
-    rm -rf $aur_pkg
-  done
-  ###
-  sah_logging $@
-  ###
-# SAH Install Pacman Package List
-elif [[ $1 == "-Spf" ]]; then
-  if [[ $2 == "" ]]; then
-    read -e -p "Enter the path to the file with list of packages for installation (Pacman): " install_pkg_list
-    ###
-    exit_code=$?
-    ###
-  elif [[ $2 != "" ]]; then
-    install_pkg_list=$2
-    ###
-    exit_code=$?
+    sah_logging $@
     ###
   fi
-
-  list_items_count=$(cat $install_pkg_list | wc -l)
-  ###
-  exit_code=$?
-  ###
-  list_line=1
-  pkg_string=""
-  for (( i = 0; i < $list_items_count; i++ )); do
-    list_item=$(sed -n ${list_line}p $install_pkg_list)
-    if [[ $i == 0 ]]; then
-      pkg_string="$list_item"
-    else
-      pkg_string="$pkg_string $list_item"
-    fi
-    list_line=$(($list_line + 1))
-  done
-
-  sudo pacman -S $pkg_string
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Install Local/Remote Package
 elif [[ $1 == "-U" ]]; then
   sudo pacman -U $2
