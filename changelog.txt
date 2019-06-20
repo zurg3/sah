@@ -1,3 +1,9 @@
+v0.7.2 (20.06.2019)
+- Added a feature to install packages from file with list of packages
+- Added a feature to enable/disable waiting for user input before proceeding with operations
+- Changed SAH option 'updateconfig' to 'resetconfig'
+- Updated AUR TOP-10 packages
+
 v0.7.1 (16.06.2019)
 - Updated paths to some files
 - Updated AUR TOP-10 packages
