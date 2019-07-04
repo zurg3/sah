@@ -1,3 +1,7 @@
+v0.7.3 (04.07.2019)
+- Moved AUR TOP-10 packages to separate file
+- Updated AUR TOP-10 packages
+
 v0.7.2 (20.06.2019)
 - Added a feature to install packages from file with list of packages
 - Added a feature to enable/disable waiting for user input before proceeding with operations
