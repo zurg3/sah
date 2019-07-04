@@ -13,6 +13,8 @@ SAH_config_path="/etc/sah_config"
 pacman_config_path="/etc/pacman.conf"
 mirrorlist_path="/etc/pacman.d/mirrorlist"
 SAH_changelog_path="/usr/share/sah/changelog"
+aur_top_URL="https://raw.githubusercontent.com/zurg3/sah/dev/aur_top.txt"
+aur_top_path="/tmp/aur_top.txt"
 SAH_log_file_path="$HOME/.sah_log"
 
 kernel_version=$(uname -r)
@@ -63,18 +65,6 @@ if [[ $noconfirm_check == "false" ]]; then
 elif [[ $noconfirm_check == "true" ]]; then
   makepkg_type="$makepkg_type --noconfirm"
 fi
-
-# AUR TOP-10 Packages
-aur_top=(yay
-spotify
-tor-browser
-discord
-aurvote
-polybar
-freecad
-visual-studio-code-bin
-android-studio
-google-chrome)
 
 ##### Functions
 
@@ -428,10 +418,16 @@ elif [[ $1 == "changelog" ]]; then
   ###
 # SAH AUR TOP Packages
 elif [[ $1 == "top" ]]; then
+  wget -q $aur_top_URL -O $aur_top_path
+  ###
+  exit_code=$?
+  ###
+  readarray -t aur_top < $aur_top_path
+  aur_top_date=${aur_top[0]}
   if [[ $2 == "" ]]; then
     aur_top_num=1
-    echo "TOP-10 popular AUR packages (updated on 20.06.2019):"
-    for (( i = 0; i < 10; i++ )); do
+    echo "TOP-10 popular AUR packages (updated on $aur_top_date):"
+    for (( i = 1; i < 11; i++ )); do
       echo "$aur_top_num. ${aur_top[$i]}"
       aur_top_num=$(($aur_top_num + 1))
     done
@@ -440,24 +436,31 @@ elif [[ $1 == "top" ]]; then
     sah_logging $@
     ###
   elif [[ $2 != "" ]]; then
-    aur_top_install=$(($2 - 1))
-    aur_pkg=${aur_top[$aur_top_install]}
-    ###
-    exit_code=$?
-    ###
-    git clone https://aur.archlinux.org/$aur_pkg.git
-    cd $aur_pkg
-    echo "Installing $aur_pkg..."
-    makepkg $makepkg_type
-    ###
-    exit_code=$?
-    ###
-    cd ..
-    rm -rf $aur_pkg
-    ###
-    sah_logging $@
-    ###
+    if (( $2 >= 1 && $2 <= 10 )); then
+      aur_top_install=$2
+      aur_pkg=${aur_top[$aur_top_install]}
+      ###
+      exit_code=$?
+      ###
+      git clone https://aur.archlinux.org/$aur_pkg.git
+      cd $aur_pkg
+      echo "Installing $aur_pkg..."
+      makepkg $makepkg_type
+      ###
+      exit_code=$?
+      ###
+      cd ..
+      rm -rf $aur_pkg
+    else
+      echo "You can install packages only in the range from 1 to 10!"
+      ###
+      exit_code="1"
+      ###
+    fi
   fi
+  ###
+  sah_logging $@
+  ###
 # SAH Log
 elif [[ $1 == "log" ]]; then
   if [[ $logging_check == "true" ]]; then
@@ -650,8 +653,7 @@ sah_logging $@
 elif [[ $1 == "debug" ]]; then
   # Man page preview: nroff -man sah.8 | less
   echo "=====SAH Debug v$VERSION====="
-  echo ""
-  echo "....."
+  echo "=========================="
   ###
   exit_code=$?
   sah_logging $@
