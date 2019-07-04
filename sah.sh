@@ -13,8 +13,8 @@ SAH_config_path="/etc/sah_config"
 pacman_config_path="/etc/pacman.conf"
 mirrorlist_path="/etc/pacman.d/mirrorlist"
 SAH_changelog_path="/usr/share/sah/changelog"
-aur_top_URL="https://raw.githubusercontent.com/zurg3/sah/dev/aur_top.txt"
-aur_top_path="/tmp/aur_top.txt"
+aur_top_url="https://raw.githubusercontent.com/zurg3/sah/dev/aur_top.txt"
+aur_top_path="/tmp/aur_top"
 SAH_log_file_path="$HOME/.sah_log"
 
 kernel_version=$(uname -r)
@@ -418,7 +418,7 @@ elif [[ $1 == "changelog" ]]; then
   ###
 # SAH AUR TOP Packages
 elif [[ $1 == "top" ]]; then
-  wget -q $aur_top_URL -O $aur_top_path
+  wget -q $aur_top_url -O $aur_top_path
   ###
   exit_code=$?
   ###
