@@ -70,7 +70,7 @@ fi
 
 sah_logging() {
   if [[ $logging_check == "true" ]]; then
-    echo "[Arch Linux $kernel_version][$USER@$HOSTNAME][$date_time_format] sah $@ [$exit_code]" >> $SAH_log_file_path
+    echo "[$date_time_format] sah $@ [$exit_code]" >> $SAH_log_file_path
   fi
 }
 
