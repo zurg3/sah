@@ -652,7 +652,11 @@ sah_logging $@
 # SAH Debug
 elif [[ $1 == "debug" ]]; then
   # Man page preview: nroff -man sah.8 | less
-  echo "=====SAH Debug v$VERSION====="
+  echo "===== SAH Debug v$VERSION ====="
+  echo "=========================="
+  echo "Arch Linux $kernel_version"
+  echo "$USER@$HOSTNAME"
+  echo "$date_time_format"
   echo "=========================="
   ###
   exit_code=$?
