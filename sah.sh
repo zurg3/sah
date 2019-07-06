@@ -6,8 +6,8 @@ VERSION="0.7.3"
 ##### Settings
 
 # Variables to paths
-pkg_list_path="$HOME/.sah_pkg_list"
-pkg_list_path_v="$HOME/.sah_pkg_list_v"
+pkg_list_path="$HOME/.sah/sah_pkg_list"
+pkg_list_path_v="$HOME/.sah/sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
 SAH_config_path="/etc/sah_config"
 pacman_config_path="/etc/pacman.conf"
@@ -15,7 +15,7 @@ mirrorlist_path="/etc/pacman.d/mirrorlist"
 SAH_changelog_path="/usr/share/sah/changelog"
 aur_top_url="https://raw.githubusercontent.com/zurg3/sah/dev/aur_top.txt"
 aur_top_path="/tmp/aur_top"
-SAH_log_file_path="$HOME/.sah_log"
+SAH_log_file_path="$HOME/.sah/sah_log"
 
 kernel_version=$(uname -r)
 date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
