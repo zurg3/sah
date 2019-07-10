@@ -1,11 +1,11 @@
-04.07.2019
+10.07.2019
 yay
 spotify
 discord
 tor-browser
 polybar
-aurvote
 brave-bin
-freecad
-google-chrome
 visual-studio-code-bin
+aurvote
+skypeforlinux-stable-bin
+google-chrome
