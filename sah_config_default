@@ -1,4 +1,4 @@
-logging=true
+logging=false
 
 update_pacman=true
 update_aur=true
