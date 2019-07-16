@@ -23,6 +23,8 @@ date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 # Reading config options
 logging_check=$(cat $SAH_config_path | grep "logging" | awk -F "=" '{print $2}')
 
+SAH_editor=$(cat $SAH_config_path | grep "editor" | awk -F "=" '{print $2}')
+
 update_pacman_check=$(cat $SAH_config_path | grep "update_pacman" | awk -F "=" '{print $2}')
 update_aur_check=$(cat $SAH_config_path | grep "update_aur" | awk -F "=" '{print $2}')
 aur_update_notify_check=$(cat $SAH_config_path | grep "aur_update_notify" | awk -F "=" '{print $2}')
@@ -374,7 +376,7 @@ elif [[ $1 == "custom" ]]; then
   ###
 # SAH Config
 elif [[ $1 == "config" ]]; then
-  sudo nano $SAH_config_path
+  sudo $SAH_editor $SAH_config_path
   ###
   exit_code=$?
   sah_logging $@
@@ -382,21 +384,21 @@ elif [[ $1 == "config" ]]; then
 # SAH Reset Config
 elif [[ $1 == "resetconfig" ]]; then
   sudo curl -s "https://raw.githubusercontent.com/zurg3/sah/v$VERSION/sah_config_default" -o $SAH_config_path
-  sudo nano $SAH_config_path
+  sudo $SAH_editor $SAH_config_path
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Pacman Config
 elif [[ $1 == "pacconf" ]]; then
-  sudo nano $pacman_config_path
+  sudo $SAH_editor $pacman_config_path
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Pacman Mirrorlist
 elif [[ $1 == "mirrorlist" ]]; then
-  sudo nano $mirrorlist_path
+  sudo $SAH_editor $mirrorlist_path
   ###
   exit_code=$?
   sah_logging $@
@@ -404,7 +406,7 @@ elif [[ $1 == "mirrorlist" ]]; then
 # SAH Pacman Update Mirrors
 elif [[ $1 == "updatemirrors" ]]; then
   sudo curl -s "https://www.archlinux.org/mirrorlist/?country=$mirrorlist_country&protocol=$mirrorlist_protocol&ip_version=$mirrorlist_ip_version" -o $mirrorlist_path
-  sudo nano $mirrorlist_path
+  sudo $SAH_editor $mirrorlist_path
   ###
   exit_code=$?
   sah_logging $@
@@ -620,6 +622,7 @@ Also you can use 'sah config' to open SAH config file via nano editor
 
 Supported properties in config:
 logging (true/false) - enable/disable logging
+editor (editor name) - text editor for editing configs
 update_pacman (true/false) - enable/disable updating of Pacman packages
 update_aur (true/false) - enable/disable updating of AUR packages
 aur_update_notify (true/false) - notify about new versions of AUR packages during updating
@@ -634,6 +637,7 @@ noconfirm (true/false) - enable/disable waiting for user input before proceeding
 
 Properties examples:
 logging=true
+editor=nano
 update_pacman=true
 update_aur=true
 aur_update_notify=false

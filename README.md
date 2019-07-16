@@ -220,6 +220,7 @@ to open SAH config file via nano editor
 | Property | Value/Values | Description |
 | -------- | ------------ | ----------- |
 | logging | true/false | enable/disable logging |
+| editor | editor name | text editor for editing configs |
 | update_pacman | true/false | enable/disable updating of Pacman packages |
 | update_aur | true/false | enable/disable updating of AUR packages |
 | aur_update_notify | true/false | notify about new versions of AUR packages during updating |
@@ -234,6 +235,8 @@ to open SAH config file via nano editor
 
 ### Properties examples:
 logging=*true*
+
+editor=*nano*
 
 update_pacman=*true*
 

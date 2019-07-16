@@ -1,5 +1,7 @@
 logging=false
 
+editor=nano
+
 update_pacman=true
 update_aur=true
 aur_update_notify=false
