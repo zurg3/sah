@@ -21,22 +21,26 @@ kernel_version=$(uname -r)
 date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 
 # Reading config options
-logging_check=$(cat $SAH_config_path | grep "logging" | awk -F "=" '{print $2}')
+read_config() {
+  cat $SAH_config_path | grep $1 | awk -F "=" '{print $2}'
+}
 
-SAH_editor=$(cat $SAH_config_path | grep "editor" | awk -F "=" '{print $2}')
+logging_check=$(read_config logging)
 
-update_pacman_check=$(cat $SAH_config_path | grep "update_pacman" | awk -F "=" '{print $2}')
-update_aur_check=$(cat $SAH_config_path | grep "update_aur" | awk -F "=" '{print $2}')
-aur_update_notify_check=$(cat $SAH_config_path | grep "aur_update_notify" | awk -F "=" '{print $2}')
+SAH_editor=$(read_config editor)
 
-mirrorlist_country=$(cat $SAH_config_path | grep "mirrorlist_country" | awk -F "=" '{print $2}')
-mirrorlist_protocol=$(cat $SAH_config_path | grep "mirrorlist_protocol" | awk -F "=" '{print $2}')
-mirrorlist_ip_version=$(cat $SAH_config_path | grep "mirrorlist_ip_version" | awk -F "=" '{print $2}')
+update_pacman_check=$(read_config update_pacman)
+update_aur_check=$(read_config update_aur)
+aur_update_notify_check=$(read_config aur_update_notify)
 
-rmd_check=$(cat $SAH_config_path | grep "rmd" | awk -F "=" '{print $2}')
-pgp_check=$(cat $SAH_config_path | grep "pgp_check" | awk -F "=" '{print $2}')
-needed_check=$(cat $SAH_config_path | grep "needed" | awk -F "=" '{print $2}')
-noconfirm_check=$(cat $SAH_config_path | grep "noconfirm" | awk -F "=" '{print $2}')
+mirrorlist_country=$(read_config mirrorlist_country)
+mirrorlist_protocol=$(read_config mirrorlist_protocol)
+mirrorlist_ip_version=$(read_config mirrorlist_ip_version)
+
+rmd_check=$(read_config rmd)
+pgp_check=$(read_config pgp_check)
+needed_check=$(read_config needed)
+noconfirm_check=$(read_config noconfirm)
 
 # Remove make dependencies (-si/-sir)
 if [[ $rmd_check == "false" ]]; then
