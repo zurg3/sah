@@ -317,9 +317,18 @@ elif [[ $1 == "-Rs" || $1 == "purge" ]]; then
   sah_logging $@
   ###
 # SAH Installed All
+elif [[ $1 == "-Q" || $1 == "list" ]]; then
+  query_pkg_count=$(sudo pacman -Q | wc -l)
+  echo "Installed packages (All) [$query_pkg_count packages]:"
+  sudo pacman -Q
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
+# SAH Installed Explicitly
 elif [[ $1 == "-Qe" ]]; then
   query_pkg_count=$(sudo pacman -Qe | wc -l)
-  echo "Installed packages (All) [$query_pkg_count packages]:"
+  echo "Installed packages (Explicitly) [$query_pkg_count packages]:"
   sudo pacman -Qe
   ###
   exit_code=$?
@@ -380,6 +389,7 @@ elif [[ $1 == "custom" ]]; then
   ###
 # SAH Statistics
 elif [[ $1 == "stat" ]]; then
+  query_pkg_count_Q=$(sudo pacman -Q | wc -l)
   query_pkg_count_Qe=$(sudo pacman -Qe | wc -l)
   query_pkg_count_Qm=$(sudo pacman -Qm | wc -l)
   query_pkg_count_Qdt=$(sudo pacman -Qdt | wc -l)
@@ -390,7 +400,8 @@ elif [[ $1 == "stat" ]]; then
 
   echo "Packages statistics"
 
-  echo "Installed packages (All): $query_pkg_count_Qe"
+  echo "Installed packages (All): $query_pkg_count_Q"
+  echo "Installed packages (Explicitly): $query_pkg_count_Qe"
   echo "Installed packages (AUR): $query_pkg_count_Qm"
   echo "Packages no longer required as dependencies (orphans): $query_pkg_count_Qdt"
 
@@ -599,6 +610,9 @@ Remove package/packages with dependencies which aren't required by any other ins
 sah -Rs [package1] [package2] ...
 
 Show installed packages (All)
+sah -Q
+
+Show installed packages (Explicitly)
 sah -Qe
 
 Show installed packages (AUR)
@@ -643,6 +657,9 @@ sah remove [package1] [package2] ...
 
 Remove package/packages with dependencies which aren't required by any other installed packages
 sah purge [package1] [package2] ...
+
+Show installed packages
+sah list
 
 Configuration:
 You can edit SAH config file to set up some settings

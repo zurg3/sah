@@ -139,6 +139,11 @@ $ sah -Rs [package1] [package2] ...
 
 Show installed packages (All)
 ```
+$ sah -Q
+```
+
+Show installed packages (Explicitly)
+```
 $ sah -Qe
 ```
 
@@ -211,6 +216,11 @@ $ sah remove [package1] [package2] ...
 Remove package/packages with dependencies which aren't required by any other installed packages
 ```
 $ sah purge [package1] [package2] ...
+```
+
+Show installed packages
+```
+$ sah list
 ```
 
 ## Configuration:
