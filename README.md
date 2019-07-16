@@ -177,6 +177,11 @@ Execute custom Pacman operation
 $ sah custom [operation]
 ```
 
+Show packages statistics
+```
+$ sah stat
+```
+
 ### APT-style:
 Install package/packages from AUR
 ```

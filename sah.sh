@@ -361,7 +361,7 @@ elif [[ $1 == "-Qi" ]]; then
 # SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
   query_pkg_count=$(sudo pacman -Qdt | wc -l)
-  echo "Packages no longer required as dependencies (orphans) [$query_pkg_count packages]"
+  echo "Packages no longer required as dependencies (orphans) [$query_pkg_count packages]:"
   sudo pacman -Qdt
   ###
   exit_code=$?
@@ -370,6 +370,26 @@ elif [[ $1 == "-Qdt" ]]; then
 # SAH Custom Pacman Operation
 elif [[ $1 == "custom" ]]; then
   sudo pacman ${@:2}
+  ###
+  exit_code=$?
+  sah_logging $@
+  ###
+# SAH Statistics
+elif [[ $1 == "stat" ]]; then
+  query_pkg_count_Qe=$(sudo pacman -Qe | wc -l)
+  query_pkg_count_Qm=$(sudo pacman -Qm | wc -l)
+  query_pkg_count_Qdt=$(sudo pacman -Qdt | wc -l)
+
+  ###
+  exit_code=$?
+  ###
+
+  echo "Packages statistics"
+
+  echo "Installed packages (All): $query_pkg_count_Qe"
+  echo "Installed packages (AUR): $query_pkg_count_Qm"
+  echo "Packages no longer required as dependencies (orphans): $query_pkg_count_Qdt"
+
   ###
   exit_code=$?
   sah_logging $@
@@ -597,6 +617,9 @@ sah -Qdt
 
 Execute custom Pacman operation
 sah custom [operation]
+
+Show packages statistics
+sah stat
 
 APT-style:
 Install package/packages from AUR
