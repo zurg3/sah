@@ -28,6 +28,9 @@
 - [curl](https://www.archlinux.org/packages/core/x86_64/curl/)
 - [sed](https://www.archlinux.org/packages/core/x86_64/sed/)
 
+## Optional dependencies:
+- [vim](https://www.archlinux.org/packages/extra/x86_64/vim/) - *an alternative editor to edit configs*
+
 ## Installation:
 ```
 $ git clone https://github.com/zurg3/sah.git

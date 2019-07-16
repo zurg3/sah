@@ -512,6 +512,9 @@ Dependencies:
 - curl
 - sed
 
+Optional dependencies:
+- vim - an alternative editor to edit configs
+
 Reset to default SAH config file from GitHub repo:
 sah resetconfig
 

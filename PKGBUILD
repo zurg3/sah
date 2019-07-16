@@ -7,6 +7,7 @@ arch=('any')
 url="https://github.com/zurg3/sah"
 license=('GPLv3')
 depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less' 'nano' 'bash-completion' 'curl' 'sed')
+optdepends=('vim: an alternative editor to edit configs')
 backup=('etc/sah_config')
 source=("https://github.com/zurg3/sah/archive/v$pkgver.tar.gz")
 md5sums=('SKIP')
