@@ -193,8 +193,8 @@ elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
     echo
     echo "Checking for updates from AUR..."
 
-    pacman -Qqm > $pkg_list_path
-    pacman -Qm > $pkg_list_path_v
+    sudo pacman -Qqm > $pkg_list_path
+    sudo pacman -Qm > $pkg_list_path_v
 
     readarray -t pkg_list < $pkg_list_path
     readarray -t pkg_list_v < $pkg_list_path_v
@@ -312,55 +312,55 @@ elif [[ $1 == "-Rs" || $1 == "purge" ]]; then
   ###
 # SAH Installed All
 elif [[ $1 == "-Qe" ]]; then
-  query_pkg_count=$(pacman -Qe | wc -l)
+  query_pkg_count=$(sudo pacman -Qe | wc -l)
   echo "Installed packages (All) [$query_pkg_count packages]:"
-  pacman -Qe
+  sudo pacman -Qe
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Installed AUR
 elif [[ $1 == "-Qm" ]]; then
-  query_pkg_count=$(pacman -Qm | wc -l)
+  query_pkg_count=$(sudo pacman -Qm | wc -l)
   echo "Installed packages (AUR) [$query_pkg_count packages]:"
-  pacman -Qm
+  sudo pacman -Qm
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Search
 elif [[ $1 == "-Ss" ]]; then
-  pacman -Ss $2
+  sudo pacman -Ss $2
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Search Installed
 elif [[ $1 == "-Qs" ]]; then
-  pacman -Qs $2
+  sudo pacman -Qs $2
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Show Info
 elif [[ $1 == "-Si" ]]; then
-  pacman -Si $2
+  sudo pacman -Si $2
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Show Info Installed
 elif [[ $1 == "-Qi" ]]; then
-  pacman -Qi $2
+  sudo pacman -Qi $2
   ###
   exit_code=$?
   sah_logging $@
   ###
 # SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
-  query_pkg_count=$(pacman -Qdt | wc -l)
+  query_pkg_count=$(sudo pacman -Qdt | wc -l)
   echo "Packages no longer required as dependencies (orphans) [$query_pkg_count packages]"
-  pacman -Qdt
+  sudo pacman -Qdt
   ###
   exit_code=$?
   sah_logging $@
