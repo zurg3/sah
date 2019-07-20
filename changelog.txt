@@ -1,3 +1,14 @@
+v0.8 (20.07.2019)
+- Added config option to select editor
+- Added a feature to show packages statistics
+- Added a feature to show all installed packages
+  -Qe is for explicitly installed packages from now.
+  Also added APT-style operation.
+- Disabled logging by default
+- Execute all Pacman operations via sudo
+- Paths and variables improvements
+- Updated AUR TOP-10 packages
+
 v0.7.3 (04.07.2019)
 - Moved AUR TOP-10 packages to separate file
 - Updated AUR TOP-10 packages
