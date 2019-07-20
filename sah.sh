@@ -703,12 +703,26 @@ sah_logging $@
 # SAH Debug
 elif [[ $1 == "debug" ]]; then
   # Man page preview: nroff -man sah.8 | less
+
+  version_length=${#VERSION}
+  if [[ $version_length == "3" ]]; then
+    debug_art="=========================="
+  elif [[ $version_length == "5" ]]; then
+    debug_art="============================"
+  elif [[ $version_length == "6" ]]; then
+    debug_art="============================="
+  elif [[ $version_length == "7" ]]; then
+    debug_art="=============================="
+  else
+    debug_art="= = = = ="
+  fi
+
   echo "===== SAH Debug v$VERSION ====="
-  echo "=========================="
+  echo "$debug_art"
   echo "Arch Linux $kernel_version"
   echo "$USER@$HOSTNAME"
   echo "$date_time_format"
-  echo "=========================="
+  echo "$debug_art"
   ###
   exit_code=$?
   sah_logging $@
