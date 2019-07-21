@@ -1,3 +1,6 @@
+v0.8.1 (21.07.2019)
+- Updated SAH documentation
+
 v0.8 (20.07.2019)
 - Added config option to select editor
 - Added a feature to show packages statistics
