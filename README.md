@@ -14,7 +14,7 @@
 - [Issues](https://github.com/zurg3/sah/issues) and [Pull Requests](https://github.com/zurg3/sah/pulls) are welcome.
 - If this repository will get at least 10 stars, I'll add the PKGBUILD to AUR.
 
-## Dependencies:
+## Dependencies (most of them installed by default):
 - [bash](https://www.archlinux.org/packages/core/x86_64/bash/)
 - [sudo](https://www.archlinux.org/packages/core/x86_64/sudo/)
 - [pacman](https://www.archlinux.org/packages/core/x86_64/pacman/)
@@ -45,12 +45,12 @@ $ rm -rf sah
 $ sah resetconfig
 ```
 
-## Open Pacman config file via nano editor:
+## Open Pacman config file via selected text editor:
 ```
 $ sah pacconf
 ```
 
-## Open mirrorlist file via nano editor:
+## Open mirrorlist file via selected text editor:
 ```
 $ sah mirrorlist
 ```
@@ -232,7 +232,7 @@ Also you can use
 ```
 $ sah config
 ```
-to open SAH config file via nano editor
+to open SAH config file via selected text editor
 
 ### Supported properties in config
 | Property | Value/Values | Description |

@@ -533,7 +533,7 @@ Author: zurg3 (Stepan Skryabin)
 Created: 12.02.2019
 License: GNU GPL v3
 
-Dependencies:
+Dependencies (most of them installed by default):
 - bash
 - sudo
 - pacman
@@ -553,10 +553,10 @@ Optional dependencies:
 Reset to default SAH config file from GitHub repo:
 sah resetconfig
 
-Open Pacman config file via nano editor:
+Open Pacman config file via selected text editor:
 sah pacconf
 
-Open mirrorlist file via nano editor:
+Open mirrorlist file via selected text editor:
 sah mirrorlist
 
 Update mirrorlist from Arch Linux website:
@@ -665,7 +665,7 @@ Configuration:
 You can edit SAH config file to set up some settings
 SAH config file path: $SAH_config_path
 
-Also you can use 'sah config' to open SAH config file via nano editor
+Also you can use 'sah config' to open SAH config file via selected text editor
 
 Supported properties in config:
 logging (true/false) - enable/disable logging
