@@ -17,6 +17,7 @@ package() {
   install -Dm755 sah.sh "$pkgdir/usr/bin/sah"
   install -Dm644 sah.8 "$pkgdir/usr/share/man/man8/sah.8"
   install -Dm644 sah_config_default "$pkgdir/etc/sah_config"
+  install -Dm644 help.txt "$pkgdir/usr/share/sah/help"
   install -Dm644 changelog.txt "$pkgdir/usr/share/sah/changelog"
   install -Dm644 sah_completion.bash "$pkgdir/etc/bash_completion.d/sah_completion.bash"
 }

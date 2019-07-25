@@ -1,0 +1,175 @@
+#!/bin/bash
+
+VERSION="0.8.1"
+SAH_config_path="/etc/sah_config"
+
+echo "Simple AUR Helper (SAH) and Pacman wrapper
+
+Version: $VERSION
+Author: zurg3 (Stepan Skryabin)
+Created: 12.02.2019
+License: GNU GPL v3
+
+Dependencies (most of them installed by default):
+- bash
+- sudo
+- pacman
+- coreutils
+- git
+- wget
+- grep
+- less
+- nano
+- bash-completion
+- curl
+- sed
+
+Optional dependencies:
+- vim - an alternative editor to edit configs
+
+Reset to default SAH config file from GitHub repo:
+sah resetconfig
+
+Open Pacman config file via selected text editor:
+sah pacconf
+
+Open mirrorlist file via selected text editor:
+sah mirrorlist
+
+Update mirrorlist from Arch Linux website:
+sah updatemirrors
+
+Show SAH changelog:
+sah changelog
+
+Show AUR TOP-10 packages:
+sah top
+
+Install package from AUR TOP-10:
+sah top [1-10]
+
+Show SAH log (if logging is enabled):
+sah log
+
+Clear SAH log file (if logging is enabled):
+sah clearlog
+
+Examples:
+Pacman-style:
+Install package/packages from AUR
+sah -S [package1] [package2] ...
+
+Install package/packages from Pacman
+sah -Sp [package1] [package2] ...
+
+Install packages from file with list of packages (AUR)
+sah -Sf [file]
+
+Install packages from file with list of packages (Pacman)
+sah -Spf [file]
+
+Install local or remote package
+sah -U [package]
+
+Update package database
+sah -Syy
+
+Update installed packages (Pacman + AUR)
+sah -Syu
+
+Clean the package cache
+sah -Sc
+
+Remove package/packages
+sah -R [package1] [package2] ...
+
+Remove package/packages with dependencies which aren't required by any other installed packages
+sah -Rs [package1] [package2] ...
+
+Show installed packages (All)
+sah -Q
+
+Show installed packages (Explicitly)
+sah -Qe
+
+Show installed packages (AUR)
+sah -Qm
+
+Search for packages in the database
+sah -Ss [package]
+
+Search for already installed packages
+sah -Qs [package]
+
+Show information about package
+sah -Si [package]
+
+Show information about package (for locally installed packages)
+sah -Qi [package]
+
+Show all packages no longer required as dependencies (orphans)
+sah -Qdt
+
+Execute custom Pacman operation
+sah custom [operation]
+
+Show packages statistics
+sah stat
+
+APT-style:
+Install package/packages from AUR
+sah install [package1] [package2] ...
+
+Update package database
+sah update
+
+Update installed packages (Pacman + AUR)
+sah upgrade
+
+Clean the package cache
+sah autoremove
+
+Remove package/packages
+sah remove [package1] [package2] ...
+
+Remove package/packages with dependencies which aren't required by any other installed packages
+sah purge [package1] [package2] ...
+
+Show installed packages
+sah list
+
+Configuration:
+You can edit SAH config file to set up some settings
+SAH config file path: $SAH_config_path
+
+Also you can use 'sah config' to open SAH config file via selected text editor
+
+Supported properties in config:
+logging (true/false) - enable/disable logging
+editor (editor name) - text editor for editing configs
+update_pacman (true/false) - enable/disable updating of Pacman packages
+update_aur (true/false) - enable/disable updating of AUR packages
+aur_update_notify (true/false) - notify about new versions of AUR packages during updating
+aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
+mirrorlist_country (country code) - mirrors country
+mirrorlist_protocol (http/https) - mirrors protocol
+mirrorlist_ip_version (4/6) - mirrors IP version
+rmd (true/false) - remove make dependencies of AUR packages during installation or updating
+pgp_check (true/false) - enable/disable verifying PGP signatures of source files
+needed (true/false) - enable/disable reinstalling packages if they are already up-to-date
+noconfirm (true/false) - enable/disable waiting for user input before proceeding with operations
+
+Properties examples:
+logging=true
+editor=nano
+update_pacman=true
+update_aur=true
+aur_update_notify=false
+aur_update_ignore=yay,dropbox,google-chrome
+mirrorlist_country=RU
+mirrorlist_protocol=http
+mirrorlist_ip_version=4
+rmd=false
+pgp_check=false
+needed=false
+noconfirm=false" > help.txt
