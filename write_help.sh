@@ -26,6 +26,7 @@ Dependencies (most of them installed by default):
 
 Optional dependencies:
 - vim - an alternative editor to edit configs
+- firefox - to browse packages from Arch Linux website
 
 Reset to default SAH config file from GitHub repo:
 sah resetconfig
