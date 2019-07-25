@@ -75,6 +75,16 @@ $ sah top
 $ sah top [1-10]
 ```
 
+## Browse all packages from Arch Linux website via web browser
+```
+$ sah browse
+```
+
+## Browse the package from Arch Linux website via web browser
+```
+$ sah browse [package]
+```
+
 ## Show SAH log (if logging is enabled):
 ```
 $ sah log
@@ -239,6 +249,7 @@ to open SAH config file via selected text editor
 | -------- | ------------ | ----------- |
 | logging | true/false | enable/disable logging |
 | editor | editor name | text editor for editing configs |
+| browser | browser name | web browser to browse packages from Arch Linux website |
 | update_pacman | true/false | enable/disable updating of Pacman packages |
 | update_aur | true/false | enable/disable updating of AUR packages |
 | aur_update_notify | true/false | notify about new versions of AUR packages during updating |
@@ -255,6 +266,8 @@ to open SAH config file via selected text editor
 logging=*true*
 
 editor=*nano*
+
+browser=*firefox*
 
 update_pacman=*true*
 

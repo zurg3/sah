@@ -29,6 +29,7 @@ read_config() {
 logging_check=$(read_config logging)
 
 SAH_editor=$(read_config editor)
+SAH_browser=$(read_config browser)
 
 update_pacman_check=$(read_config update_pacman)
 update_aur_check=$(read_config update_aur)
@@ -499,6 +500,64 @@ elif [[ $1 == "top" ]]; then
   ###
   sah_logging $@
   ###
+# SAH Browse
+elif [[ $1 == "browse" ]]; then
+  if [[ $SAH_browser == "" ]]; then
+    echo "You need specify a web browser in SAH config!"
+    ###
+    exit_code="1"
+    sah_logging $@
+    ###
+  elif [[ $SAH_browser != "" ]]; then
+    if [[ $2 == "" ]]; then
+      echo "Usage: sah browse [--pacman|--aur] or sah browse [--pacman|--aur] [package]"
+      ###
+      exit_code="1"
+      sah_logging $@
+      ###
+    elif [[ $2 != "" ]]; then
+      if [[ $3 == "" ]]; then
+        if [[ $2 == "--pacman" ]]; then
+          $SAH_browser https://www.archlinux.org/packages/
+          ###
+          exit_code=$?
+          ###
+        elif [[ $2 == "--aur" ]]; then
+          $SAH_browser https://aur.archlinux.org/packages/
+          ###
+          exit_code=$?
+          ###
+        else
+          echo "Usage: sah browse [--pacman|--aur] or sah browse [--pacman|--aur] [package]"
+          ###
+          exit_code="1"
+          sah_logging $@
+          ###
+        fi
+      elif [[ $3 != "" ]]; then
+        if [[ $2 == "--pacman" ]]; then
+          $SAH_browser https://www.archlinux.org/packages/?q=$3
+          ###
+          exit_code=$?
+          ###
+        elif [[ $2 == "--aur" ]]; then
+          $SAH_browser https://aur.archlinux.org/packages/$3
+          ###
+          exit_code=$?
+          ###
+        else
+          echo "Usage: sah browse [--pacman|--aur] or sah browse [--pacman|--aur] [package]"
+          ###
+          exit_code="1"
+          sah_logging $@
+          ###
+        fi
+        ###
+        sah_logging $@
+        ###
+      fi
+    fi
+  fi
 # SAH Log
 elif [[ $1 == "log" ]]; then
   if [[ $logging_check == "true" ]]; then

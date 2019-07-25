@@ -128,6 +128,14 @@ Show AUR TOP-10 packages
 .RS
 Install package from AUR TOP-10
 .RE
+.B browse
+.RS
+Browse all packages from Arch Linux website via web browser
+.RE
+.B browse [package]
+.RS
+Browse the package from Arch Linux website via web browser
+.RE
 .B log
 .RS
 Show SAH log (if logging is enabled)
@@ -153,6 +161,10 @@ enable/disable logging
 .B editor (editor name)
 .RS
 text editor for editing configs
+.RE
+.B browser (browser name)
+.RS
+web browser to browse packages from Arch Linux website
 .RE
 .B update_pacman (true/false)
 .RS
@@ -204,6 +216,8 @@ enable/disable waiting for user input before proceeding with operations
 logging=true
 .PP
 editor=nano
+.PP
+browser=firefox
 .PP
 update_pacman=true
 .PP
@@ -266,6 +280,16 @@ Install package from AUR TOP-10 (7th)
 .RS
 .B sah
 top 7
+.RE
+Browse all AUR packages via web browser
+.RS
+.B sah
+browse --aur
+.RE
+Search for packages (Pacman) via web browser
+.RS
+.B sah
+browse --pacman linux
 .RE
 .SH AUTHOR
 Stepan Skryabin
