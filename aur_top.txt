@@ -1,11 +1,11 @@
-01.09.2019
+01.10.2019
 yay
 spotify
 polybar
-tor-browser
 minecraft-launcher
+tor-browser
 google-chrome
-freecad
+visual-studio-code-bin
+insync
+ttf-cascadia-code
 slack-desktop
-signal
-aurvote
