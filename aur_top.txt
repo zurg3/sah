@@ -1,11 +1,11 @@
-01.11.2019
+01.12.2019
 yay
-spotify
 octopi
 alpm_octopi_utils
-google-chrome
+spotify
+octopi-dev
 tor-browser
-pikaur
+google-chrome
 minecraft-launcher
-posy-cursors
 visual-studio-code-bin
+pikaur
