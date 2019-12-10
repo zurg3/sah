@@ -1,4 +1,4 @@
-01.12.2019
+10.12.2019
 yay
 octopi
 alpm_octopi_utils
@@ -6,6 +6,6 @@ spotify
 octopi-dev
 tor-browser
 google-chrome
-minecraft-launcher
-visual-studio-code-bin
+signal-desktop
+ttf-ms-fonts
 pikaur
