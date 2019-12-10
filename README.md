@@ -12,7 +12,7 @@
 
 ## Some notes:
 - [Issues](https://github.com/zurg3/sah/issues) and [Pull Requests](https://github.com/zurg3/sah/pulls) are welcome.
-- If this repository will get at least 10 stars, I'll add the PKGBUILD to AUR.
+- If this repository will get at least 20 stars, I'll add the PKGBUILD to AUR.
 
 ## Dependencies (most of them installed by default):
 - [bash](https://www.archlinux.org/packages/core/x86_64/bash/)
@@ -76,12 +76,12 @@ $ sah top
 $ sah top [1-10]
 ```
 
-## Browse all packages from Arch Linux website via web browser
+## Browse all packages from Arch Linux website via web browser:
 ```
 $ sah browse
 ```
 
-## Browse the package from Arch Linux website via web browser
+## Browse the package from Arch Linux website via web browser:
 ```
 $ sah browse [package]
 ```
@@ -249,8 +249,8 @@ to open SAH config file via selected text editor
 | Property | Value/Values | Description |
 | -------- | ------------ | ----------- |
 | logging | true/false | enable/disable logging |
-| editor | editor name | text editor for editing configs |
-| browser | browser name | web browser to browse packages from Arch Linux website |
+| editor | package | text editor for editing configs |
+| browser | package | web browser to browse packages from Arch Linux website |
 | update_pacman | true/false | enable/disable updating of Pacman packages |
 | update_aur | true/false | enable/disable updating of AUR packages |
 | aur_update_notify | true/false | notify about new versions of AUR packages during updating |
