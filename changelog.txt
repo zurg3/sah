@@ -1,3 +1,7 @@
+v0.8.2 (10.12.2019)
+- Added a feature to browse packages from Arch Linux website via web browser
+- Updated AUR TOP-10 packages
+
 v0.8.1 (21.07.2019)
 - Updated SAH documentation
 
