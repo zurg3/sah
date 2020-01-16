@@ -18,7 +18,6 @@ SAH_help_path="/usr/share/sah/help"
 SAH_changelog_path="/usr/share/sah/changelog"
 aur_top_url="https://raw.githubusercontent.com/zurg3/sah/dev/aur_top.txt"
 aur_top_path="/tmp/aur_top"
-SAH_log_file_path="$HOME/.sah/sah_log"
 
 kernel_version=$(uname -r)
 date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
@@ -27,8 +26,6 @@ date_time_format=$(date +"%d.%m.%Y %H:%M:%S")
 read_config() {
   cat $SAH_config_path | grep $1 | awk -F "=" '{print $2}'
 }
-
-logging_check=$(read_config logging)
 
 SAH_editor=$(read_config editor)
 SAH_browser=$(read_config browser)
@@ -79,12 +76,6 @@ fi
 
 ##### Functions
 
-sah_logging() {
-  if [[ $logging_check == "true" ]]; then
-    echo "[$date_time_format] sah $@ [$exit_code]" >> $SAH_log_file_path
-  fi
-}
-
 ##### Main code
 
 # SAH Install
@@ -106,22 +97,12 @@ if [[ $1 == "-S" || $1 == "install" ]]; then
     cd $aur_pkg
     echo "Installing $aur_pkg..."
     makepkg $makepkg_type
-    ###
-    exit_code=$?
-    ###
     cd ..
     rm -rf $aur_pkg
   done
-  ###
-  sah_logging $@
-  ###
 # SAH Install Pacman
 elif [[ $1 == "-Sp" ]]; then
   sudo pacman -S ${@:2}
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Install Package List
 elif [[ $1 == "-Sf" || $1 == "-Spf" ]]; then
   if [[ $2 == "" ]]; then
@@ -131,20 +112,11 @@ elif [[ $1 == "-Sf" || $1 == "-Spf" ]]; then
       install_package_list_message="Enter the path to the file with list of packages for installation (Pacman): "
     fi
     read -e -p "$install_package_list_message" install_pkg_list
-    ###
-    exit_code=$?
-    ###
   elif [[ $2 != "" ]]; then
     install_pkg_list=$2
-    ###
-    exit_code=$?
-    ###
   fi
 
   list_items_count=$(cat $install_pkg_list | wc -l)
-  ###
-  exit_code=$?
-  ###
   list_line=1
   pkg_string=""
   for (( i = 0; i < $list_items_count; i++ )); do
@@ -175,49 +147,25 @@ elif [[ $1 == "-Sf" || $1 == "-Spf" ]]; then
       cd $aur_pkg
       echo "Installing $aur_pkg..."
       makepkg $makepkg_type
-      ###
-      exit_code=$?
-      ###
       cd ..
       rm -rf $aur_pkg
     done
-    ###
-    sah_logging $@
-    ###
   elif [[ $1 == "-Spf" ]]; then
     sudo pacman -S $pkg_string
-    ###
-    exit_code=$?
-    sah_logging $@
-    ###
   fi
 # SAH Install Local/Remote Package
 elif [[ $1 == "-U" ]]; then
   sudo pacman -U $2
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Update Package Database
 elif [[ $1 == "-Syy" || $1 == "update" ]]; then
   sudo pacman -Syy
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Update
 elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
   if [[ $update_pacman_check == "true" ]]; then
     echo "Checking for updates from Pacman..."
     sudo pacman -Syu
-    ###
-    exit_code=$?
-    ###
   elif [[ $update_pacman_check == "false" ]]; then
     echo "Updating of Pacman packages is disabled."
-    ###
-    exit_code=$?
-    ###
   fi
 
   if [[ $update_aur_check == "true" ]]; then
@@ -336,112 +284,57 @@ elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
         echo "$aur_update_ignore_message"
       fi
     done
-    ###
-    exit_code=$?
-    ###
     rm $pkg_list_path
     rm $pkg_list_path_v
     rm -rf $PKGBUILDs_path
   elif [[ $update_aur_check == "false" ]]; then
     echo
     echo "Updating of AUR packages is disabled."
-    ###
-    exit_code=$?
-    ###
   fi
-  sah_logging $@
 # SAH Clean
 elif [[ $1 == "-Sc" || $1 == "autoremove" ]]; then
   sudo pacman -Sc
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Remove
 elif [[ $1 == "-R" || $1 == "remove" ]]; then
   sudo pacman -R ${@:2}
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Remove With Dependencies
 elif [[ $1 == "-Rs" || $1 == "purge" ]]; then
   sudo pacman -Rs ${@:2}
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Installed All
 elif [[ $1 == "-Q" || $1 == "list" ]]; then
   query_pkg_count=$(sudo pacman -Q | wc -l)
   echo "Installed packages (All) [$query_pkg_count packages]:"
   sudo pacman -Q
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Installed Explicitly
 elif [[ $1 == "-Qe" ]]; then
   query_pkg_count=$(sudo pacman -Qe | wc -l)
   echo "Installed packages (Explicitly) [$query_pkg_count packages]:"
   sudo pacman -Qe
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Installed AUR
 elif [[ $1 == "-Qm" ]]; then
   query_pkg_count=$(sudo pacman -Qm | wc -l)
   echo "Installed packages (AUR) [$query_pkg_count packages]:"
   sudo pacman -Qm
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Search
 elif [[ $1 == "-Ss" ]]; then
   sudo pacman -Ss $2
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Search Installed
 elif [[ $1 == "-Qs" ]]; then
   sudo pacman -Qs $2
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Show Info
 elif [[ $1 == "-Si" ]]; then
   sudo pacman -Si $2
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Show Info Installed
 elif [[ $1 == "-Qi" ]]; then
   sudo pacman -Qi $2
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Orphans
 elif [[ $1 == "-Qdt" ]]; then
   query_pkg_count=$(sudo pacman -Qdt | wc -l)
   echo "Packages no longer required as dependencies (orphans) [$query_pkg_count packages]:"
   sudo pacman -Qdt
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Custom Pacman Operation
 elif [[ $1 == "custom" ]]; then
   sudo pacman ${@:2}
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Statistics
 elif [[ $1 == "stat" ]]; then
   query_pkg_count_Q=$(sudo pacman -Q | wc -l)
@@ -449,71 +342,35 @@ elif [[ $1 == "stat" ]]; then
   query_pkg_count_Qm=$(sudo pacman -Qm | wc -l)
   query_pkg_count_Qdt=$(sudo pacman -Qdt | wc -l)
 
-  ###
-  exit_code=$?
-  ###
-
   echo "Packages statistics"
 
   echo "Installed packages (All): $query_pkg_count_Q"
   echo "Installed packages (Explicitly): $query_pkg_count_Qe"
   echo "Installed packages (AUR): $query_pkg_count_Qm"
   echo "Packages no longer required as dependencies (orphans): $query_pkg_count_Qdt"
-
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Config
 elif [[ $1 == "config" ]]; then
   sudo $SAH_editor $SAH_config_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Reset Config
 elif [[ $1 == "resetconfig" ]]; then
   sudo curl -s "https://raw.githubusercontent.com/zurg3/sah/v$VERSION/sah_config_default" -o $SAH_config_path
   sudo $SAH_editor $SAH_config_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Pacman Config
 elif [[ $1 == "pacconf" ]]; then
   sudo $SAH_editor $pacman_config_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Pacman Mirrorlist
 elif [[ $1 == "mirrorlist" ]]; then
   sudo $SAH_editor $mirrorlist_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Pacman Update Mirrors
 elif [[ $1 == "updatemirrors" ]]; then
   sudo curl -s "https://www.archlinux.org/mirrorlist/?country=$mirrorlist_country&protocol=$mirrorlist_protocol&ip_version=$mirrorlist_ip_version" -o $mirrorlist_path
   sudo $SAH_editor $mirrorlist_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Changelog
 elif [[ $1 == "changelog" ]]; then
   less $SAH_changelog_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH AUR TOP Packages
 elif [[ $1 == "top" ]]; then
   wget -q $aur_top_url -O $aur_top_path
-  ###
-  exit_code=$?
-  ###
   readarray -t aur_top < $aur_top_path
   aur_top_date=${aur_top[0]}
   if [[ $2 == "" ]]; then
@@ -523,17 +380,10 @@ elif [[ $1 == "top" ]]; then
       echo "$aur_top_num. ${aur_top[$i]}"
       aur_top_num=$(($aur_top_num + 1))
     done
-    ###
-    exit_code=$?
-    sah_logging $@
-    ###
   elif [[ $2 != "" ]]; then
     if (( $2 >= 1 && $2 <= 10 )); then
       aur_top_install=$2
       aur_pkg=${aur_top[$aur_top_install]}
-      ###
-      exit_code=$?
-      ###
       git clone https://aur.archlinux.org/$aur_pkg.git
       if [[ $auto_cache_check == "true" ]]; then
         test -d $SAH_cache_path/$aur_pkg
@@ -548,21 +398,12 @@ elif [[ $1 == "top" ]]; then
       cd $aur_pkg
       echo "Installing $aur_pkg..."
       makepkg $makepkg_type
-      ###
-      exit_code=$?
-      ###
       cd ..
       rm -rf $aur_pkg
     else
       echo "You can install packages only in the range from 1 to 10!"
-      ###
-      exit_code="1"
-      ###
     fi
   fi
-  ###
-  sah_logging $@
-  ###
 # SAH Cache
 elif [[ $1 == "cache" ]]; then
   if [[ $2 != "install" && $2 != "update" && $2 != "remove" && $2 != "list" && $2 != "clean" ]]; then
@@ -638,93 +479,35 @@ elif [[ $1 == "cache" ]]; then
 elif [[ $1 == "browse" ]]; then
   if [[ $SAH_browser == "" ]]; then
     echo "You need specify a web browser in SAH config!"
-    ###
-    exit_code="1"
-    sah_logging $@
-    ###
   elif [[ $SAH_browser != "" ]]; then
     if [[ $2 == "" ]]; then
       echo "Usage: sah browse [--pacman|--aur] or sah browse [--pacman|--aur] [package]"
-      ###
-      exit_code="1"
-      sah_logging $@
-      ###
     elif [[ $2 != "" ]]; then
       if [[ $3 == "" ]]; then
         if [[ $2 == "--pacman" ]]; then
           $SAH_browser https://www.archlinux.org/packages/
-          ###
-          exit_code=$?
-          ###
         elif [[ $2 == "--aur" ]]; then
           $SAH_browser https://aur.archlinux.org/packages/
-          ###
-          exit_code=$?
-          ###
         else
           echo "Usage: sah browse [--pacman|--aur] or sah browse [--pacman|--aur] [package]"
-          ###
-          exit_code="1"
-          sah_logging $@
-          ###
         fi
       elif [[ $3 != "" ]]; then
         if [[ $2 == "--pacman" ]]; then
           $SAH_browser https://www.archlinux.org/packages/?q=$3
-          ###
-          exit_code=$?
-          ###
         elif [[ $2 == "--aur" ]]; then
           $SAH_browser https://aur.archlinux.org/packages/$3
-          ###
-          exit_code=$?
-          ###
         else
           echo "Usage: sah browse [--pacman|--aur] or sah browse [--pacman|--aur] [package]"
-          ###
-          exit_code="1"
-          sah_logging $@
-          ###
         fi
-        ###
-        sah_logging $@
-        ###
       fi
     fi
-  fi
-# SAH Log
-elif [[ $1 == "log" ]]; then
-  if [[ $logging_check == "true" ]]; then
-    less $SAH_log_file_path
-    ###
-    exit_code=$?
-    sah_logging $@
-    ###
-  elif [[ $logging_check == "false" ]]; then
-    echo "Logging is disabled."
-  fi
-# SAH Clear Log
-elif [[ $1 == "clearlog" ]]; then
-  if [[ $logging_check == "true" ]]; then
-    > $SAH_log_file_path
-    echo "SAH log file cleared."
-  elif [[ $logging_check == "false" ]]; then
-    echo "Logging is disabled."
   fi
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) and Pacman wrapper v$VERSION"
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Help
 elif [[ $1 == "" || $1 == "--help" || $1 == "-h" ]]; then
   less $SAH_help_path
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 # SAH Debug
 elif [[ $1 == "debug" ]]; then
   # Man page preview: nroff -man sah.8 | less
@@ -748,14 +531,6 @@ elif [[ $1 == "debug" ]]; then
   echo "$USER@$HOSTNAME"
   echo "$date_time_format"
   echo "$debug_art"
-  ###
-  exit_code=$?
-  sah_logging $@
-  ###
 else
   echo "Something is wrong!"
-  ###
-  exit_code="1"
-  sah_logging $@
-  ###
 fi
