@@ -36,6 +36,7 @@ SAH_browser=$(read_config browser)
 update_pacman_check=$(read_config update_pacman)
 update_aur_check=$(read_config update_aur)
 aur_update_notify_check=$(read_config aur_update_notify)
+auto_cache_check=$(read_config auto_cache)
 
 mirrorlist_country=$(read_config mirrorlist_country)
 mirrorlist_protocol=$(read_config mirrorlist_protocol)
@@ -92,6 +93,16 @@ if [[ $1 == "-S" || $1 == "install" ]]; then
   for aur_pkg in $aur_pkg_range
   do
     git clone https://aur.archlinux.org/$aur_pkg.git
+    if [[ $auto_cache_check == "true" ]]; then
+      test -d $SAH_cache_path/$aur_pkg
+      if [[ $? == "0" ]]; then
+        cd $SAH_cache_path/$aur_pkg
+        git pull
+        cd - > /dev/null
+      elif [[ $? == "1" ]]; then
+        git clone -q https://aur.archlinux.org/$aur_pkg.git $SAH_cache_path/$aur_pkg
+      fi
+    fi
     cd $aur_pkg
     echo "Installing $aur_pkg..."
     makepkg $makepkg_type
@@ -151,6 +162,16 @@ elif [[ $1 == "-Sf" || $1 == "-Spf" ]]; then
     for aur_pkg in $aur_pkg_range
     do
       git clone https://aur.archlinux.org/$aur_pkg.git
+      if [[ $auto_cache_check == "true" ]]; then
+        test -d $SAH_cache_path/$aur_pkg
+        if [[ $? == "0" ]]; then
+          cd $SAH_cache_path/$aur_pkg
+          git pull
+          cd - > /dev/null
+        elif [[ $? == "1" ]]; then
+          git clone -q https://aur.archlinux.org/$aur_pkg.git $SAH_cache_path/$aur_pkg
+        fi
+      fi
       cd $aur_pkg
       echo "Installing $aur_pkg..."
       makepkg $makepkg_type
@@ -247,6 +268,16 @@ elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
       if [[ " ${aur_update_ignore[*]} " != *" $check_pkg "* ]]; then
         if [[ $check_pkg_v == $version_full ]]; then
           echo "$latest_version_message"
+          if [[ $check_pkg != "sah" && $auto_cache_check == "true" ]]; then
+            test -d $SAH_cache_path/$check_pkg
+            if [[ $? == "0" ]]; then
+              cd $SAH_cache_path/$check_pkg
+              git pull
+              cd - > /dev/null
+            elif [[ $? == "1" ]]; then
+              git clone -q $git_clone_link $SAH_cache_path/$check_pkg
+            fi
+          fi
         elif [[ $check_pkg_v != $version_full ]]; then
           # Version from PKGBUILD may has the single quotes.
           echo "$version_full" | grep -q "'"
@@ -260,6 +291,16 @@ elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
               elif [[ $aur_update_notify_check == "false" ]]; then
                 echo "$update_message"
                 git clone $git_clone_link
+                if [[ $check_pkg != "sah" && $auto_cache_check == "true" ]]; then
+                  test -d $SAH_cache_path/$check_pkg
+                  if [[ $? == "0" ]]; then
+                    cd $SAH_cache_path/$check_pkg
+                    git pull
+                    cd - > /dev/null
+                  elif [[ $? == "1" ]]; then
+                    git clone -q $git_clone_link $SAH_cache_path/$check_pkg
+                  fi
+                fi
                 cd $check_pkg
                 makepkg $makepkg_type
                 cd ..
@@ -274,6 +315,16 @@ elif [[ $1 == "-Syu" || $1 == "upgrade" ]]; then
             elif [[ $aur_update_notify_check == "false" ]]; then
               echo "$update_message"
               git clone $git_clone_link
+              if [[ $check_pkg != "sah" && $auto_cache_check == "true" ]]; then
+                test -d $SAH_cache_path/$check_pkg
+                if [[ $? == "0" ]]; then
+                  cd $SAH_cache_path/$check_pkg
+                  git pull
+                  cd - > /dev/null
+                elif [[ $? == "1" ]]; then
+                  git clone -q $git_clone_link $SAH_cache_path/$check_pkg
+                fi
+              fi
               cd $check_pkg
               makepkg $makepkg_type
               cd ..
@@ -484,6 +535,16 @@ elif [[ $1 == "top" ]]; then
       exit_code=$?
       ###
       git clone https://aur.archlinux.org/$aur_pkg.git
+      if [[ $auto_cache_check == "true" ]]; then
+        test -d $SAH_cache_path/$aur_pkg
+        if [[ $? == "0" ]]; then
+          cd $SAH_cache_path/$aur_pkg
+          git pull
+          cd - > /dev/null
+        elif [[ $? == "1" ]]; then
+          git clone -q https://aur.archlinux.org/$aur_pkg.git $SAH_cache_path/$aur_pkg
+        fi
+      fi
       cd $aur_pkg
       echo "Installing $aur_pkg..."
       makepkg $makepkg_type
