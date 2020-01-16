@@ -9,6 +9,8 @@ VERSION="0.8.2"
 pkg_list_path="$HOME/.sah/sah_pkg_list"
 pkg_list_path_v="$HOME/.sah/sah_pkg_list_v"
 PKGBUILDs_path="/tmp/PKGBUILDs"
+SAH_cache_path="$HOME/.sah/cache"
+SAH_cache_list_path="$HOME/.sah/cache_list"
 SAH_config_path="/etc/sah_config"
 pacman_config_path="/etc/pacman.conf"
 mirrorlist_path="/etc/pacman.d/mirrorlist"
@@ -500,6 +502,77 @@ elif [[ $1 == "top" ]]; then
   ###
   sah_logging $@
   ###
+# SAH Cache
+elif [[ $1 == "cache" ]]; then
+  if [[ $2 != "install" && $2 != "update" && $2 != "remove" && $2 != "list" && $2 != "clean" ]]; then
+    aur_pkg_range="${@:2}"
+    for aur_pkg in $aur_pkg_range
+    do
+      test -d $SAH_cache_path/$aur_pkg
+      if [[ $? == "1" ]]; then
+        echo "Caching $aur_pkg..."
+        git clone https://aur.archlinux.org/$aur_pkg.git $SAH_cache_path/$aur_pkg
+      fi
+    done
+  fi
+
+  aur_pkg_range="${@:3}"
+  if [[ $2 == "install" ]]; then
+    for aur_pkg in $aur_pkg_range
+    do
+      test -d $SAH_cache_path/$aur_pkg
+      if [[ $? == "0" ]]; then
+        cd $SAH_cache_path/$aur_pkg
+        echo "Installing $aur_pkg..."
+        makepkg $makepkg_type
+      elif [[ $? == "1" ]]; then
+        echo "$aur_pkg - package not found."
+      fi
+    done
+  elif [[ $2 == "update" ]]; then
+    if [[ $3 != "--all" ]]; then
+      for aur_pkg in $aur_pkg_range
+      do
+        test -d $SAH_cache_path/$aur_pkg
+        if [[ $? == "0" ]]; then
+          cd $SAH_cache_path/$aur_pkg
+          echo "Updating $aur_pkg..."
+          git pull
+        elif [[ $? == "1" ]]; then
+          echo "$aur_pkg - package not found."
+        fi
+      done
+    elif [[ $3 == "--all" ]]; then
+      ls -1 $SAH_cache_path > $SAH_cache_list_path
+      readarray -t cache_list < $SAH_cache_list_path
+      cache_list_num=${#cache_list[@]}
+      for (( i = 0; i < $cache_list_num; i++ )); do
+        test -d $SAH_cache_path/${cache_list[$i]}
+        if [[ $? == "0" ]]; then
+          cd $SAH_cache_path/${cache_list[$i]}
+          echo "Updating ${cache_list[$i]}..."
+          git pull
+        elif [[ $? == "1" ]]; then
+          echo "${cache_list[$i]} - package not found."
+        fi
+      done
+    fi
+  elif [[ $2 == "remove" ]]; then
+    for aur_pkg in $aur_pkg_range
+    do
+      test -d $SAH_cache_path/$aur_pkg
+      if [[ $? == "0" ]]; then
+        rm -rf $SAH_cache_path/$aur_pkg
+        echo "Removed $aur_pkg..."
+      elif [[ $? == "1" ]]; then
+        echo "$aur_pkg - package not found."
+      fi
+    done
+  elif [[ $2 == "list" ]]; then
+    ls -1 $SAH_cache_path
+  elif [[ $2 == "clean" ]]; then
+    rm -rf $SAH_cache_path/*
+  fi
 # SAH Browse
 elif [[ $1 == "browse" ]]; then
   if [[ $SAH_browser == "" ]]; then
