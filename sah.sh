@@ -28,6 +28,7 @@ read_config() {
 }
 
 SAH_editor=$(read_config editor)
+SAH_viewer=$(read_config viewer)
 SAH_browser=$(read_config browser)
 
 update_pacman_check=$(read_config update_pacman)
@@ -367,7 +368,7 @@ elif [[ $1 == "updatemirrors" ]]; then
   sudo $SAH_editor $mirrorlist_path
 # SAH Changelog
 elif [[ $1 == "changelog" ]]; then
-  less $SAH_changelog_path
+  $SAH_viewer $SAH_changelog_path
 # SAH AUR TOP Packages
 elif [[ $1 == "top" ]]; then
   wget -q $aur_top_url -O $aur_top_path
@@ -507,14 +508,14 @@ elif [[ $1 == "view" ]]; then
   mkdir $PKGBUILDs_path
   wget_link="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$2"
   wget -q $wget_link -O $PKGBUILDs_path/$2.txt
-  less $PKGBUILDs_path/$2.txt
+  $SAH_viewer $PKGBUILDs_path/$2.txt
   rm -rf $PKGBUILDs_path
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) and Pacman wrapper v$VERSION"
 # SAH Help
 elif [[ $1 == "" || $1 == "--help" || $1 == "-h" ]]; then
-  less $SAH_help_path
+  $SAH_viewer $SAH_help_path
 # SAH Debug
 elif [[ $1 == "debug" ]]; then
   # Man page preview: nroff -man sah.8 | less

@@ -1,4 +1,5 @@
 editor=nano
+viewer=less
 browser
 
 update_pacman=true
