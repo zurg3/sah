@@ -502,6 +502,13 @@ elif [[ $1 == "browse" ]]; then
       fi
     fi
   fi
+# SAH View PKGBUILD
+elif [[ $1 == "view" ]]; then
+  mkdir $PKGBUILDs_path
+  wget_link="https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=$2"
+  wget -q $wget_link -O $PKGBUILDs_path/$2.txt
+  less $PKGBUILDs_path/$2.txt
+  rm -rf $PKGBUILDs_path
 # SAH Version
 elif [[ $1 == "--version" || $1 == "-V" ]]; then
   echo "Simple AUR Helper (SAH) and Pacman wrapper v$VERSION"
