@@ -31,6 +31,7 @@
 ## Optional dependencies:
 - [vim](https://www.archlinux.org/packages/extra/x86_64/vim/) - *an alternative editor to edit configs*
 - [firefox](https://www.archlinux.org/packages/extra/x86_64/firefox/) - *to browse packages from Arch Linux website*
+- [bat](https://www.archlinux.org/packages/community/x86_64/bat/) - *an alternative text viewer to view text files*
 
 ## Installation:
 ```

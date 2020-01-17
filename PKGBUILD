@@ -8,7 +8,8 @@ url="https://github.com/zurg3/sah"
 license=('GPLv3')
 depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less' 'nano' 'bash-completion' 'curl' 'sed')
 optdepends=('vim: an alternative editor to edit configs'
-            'firefox: to browse packages from Arch Linux website')
+            'firefox: to browse packages from Arch Linux website'
+            'bat: an alternative text viewer to view text files')
 backup=('etc/sah_config')
 source=("https://github.com/zurg3/sah/archive/v$pkgver.tar.gz")
 md5sums=('SKIP')
