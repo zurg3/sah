@@ -77,6 +77,41 @@ $ sah top
 $ sah top [1-10]
 ```
 
+## Cache AUR package/packages:
+```
+$ sah cache [package1] [package2] ...
+```
+
+## Install AUR package/packages from cache:
+```
+$ sah cache install [package1] [package2] ...
+```
+
+## Update cached AUR package/packages:
+```
+$ sah cache update [package1] [package2] ...
+```
+
+## Update all cached AUR packages:
+```
+$ sah cache update --all
+```
+
+## Remove AUR package/packages from cache:
+```
+$ sah cache remove [package1] [package2] ...
+```
+
+## Show all cached AUR packages:
+```
+$ sah cache list
+```
+
+## Remove all cached AUR packages:
+```
+$ sah cache clean
+```
+
 ## Browse all packages from Arch Linux website via web browser:
 ```
 $ sah browse
@@ -87,14 +122,9 @@ $ sah browse
 $ sah browse [package]
 ```
 
-## Show SAH log (if logging is enabled):
+## View PKGBUILD of AUR package:
 ```
-$ sah log
-```
-
-## Clear SAH log file (if logging is enabled):
-```
-$ sah clearlog
+$ sah view [package]
 ```
 
 ## Examples:
@@ -249,12 +279,13 @@ to open SAH config file via selected text editor
 ### Supported properties in config
 | Property | Value/Values | Description |
 | -------- | ------------ | ----------- |
-| logging | true/false | enable/disable logging |
 | editor | package | text editor for editing configs |
+| viewer | package | text viewer for viewing text files |
 | browser | package | web browser to browse packages from Arch Linux website |
 | update_pacman | true/false | enable/disable updating of Pacman packages |
 | update_aur | true/false | enable/disable updating of AUR packages |
 | aur_update_notify | true/false | notify about new versions of AUR packages during updating |
+| auto_cache | true/false | enable/disable auto caching for AUR packages |
 | aur_update_ignore | package1,package2,... | skip updating of some AUR packages |
 | mirrorlist_country | country code | mirrors country |
 | mirrorlist_protocol | http/https | mirrors protocol |
@@ -265,9 +296,9 @@ to open SAH config file via selected text editor
 | noconfirm | true/false | enable/disable waiting for user input before proceeding with operations |
 
 ### Properties examples:
-logging=*true*
-
 editor=*nano*
+
+viewer=*less*
 
 browser=*firefox*
 
@@ -276,6 +307,8 @@ update_pacman=*true*
 update_aur=*true*
 
 aur_update_notify=*false*
+
+auto_cache=*true*
 
 aur_update_ignore=*yay,dropbox,google-chrome*
 

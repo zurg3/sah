@@ -45,17 +45,35 @@ sah top
 Install package from AUR TOP-10:
 sah top [1-10]
 
+Cache AUR package/packages:
+sah cache [package1] [package2] ...
+
+Install AUR package/packages from cache:
+sah cache install [package1] [package2] ...
+
+Update cached AUR package/packages:
+sah cache update [package1] [package2] ...
+
+Update all cached AUR packages:
+sah cache update --all
+
+Remove AUR package/packages from cache:
+sah cache remove [package1] [package2] ...
+
+Show all cached AUR packages:
+sah cache list
+
+Remove all cached AUR packages:
+sah cache clean
+
 Browse all packages from Arch Linux website via web browser:
 sah browse
 
 Browse the package from Arch Linux website via web browser:
 sah browse [package]
 
-Show SAH log (if logging is enabled):
-sah log
-
-Clear SAH log file (if logging is enabled):
-sah clearlog
+View PKGBUILD of AUR package:
+sah view [package]
 
 Examples:
 Pacman-style:
@@ -148,12 +166,13 @@ SAH config file path: /etc/sah_config
 Also you can use 'sah config' to open SAH config file via selected text editor
 
 Supported properties in config:
-logging (true/false) - enable/disable logging
 editor (package) - text editor for editing configs
+viewer (package) - text viewer for viewing text files
 browser (package) - web browser to browse packages from Arch Linux website
 update_pacman (true/false) - enable/disable updating of Pacman packages
 update_aur (true/false) - enable/disable updating of AUR packages
 aur_update_notify (true/false) - notify about new versions of AUR packages during updating
+auto_cache (true/false) - enable/disable auto caching for AUR packages
 aur_update_ignore (package1,package2,...) - skip updating of some AUR packages
 mirrorlist_country (country code) - mirrors country
 mirrorlist_protocol (http/https) - mirrors protocol
@@ -164,12 +183,13 @@ needed (true/false) - enable/disable reinstalling packages if they are already u
 noconfirm (true/false) - enable/disable waiting for user input before proceeding with operations
 
 Properties examples:
-logging=true
 editor=nano
+viewer=less
 browser=firefox
 update_pacman=true
 update_aur=true
 aur_update_notify=false
+auto_cache=true
 aur_update_ignore=yay,dropbox,google-chrome
 mirrorlist_country=RU
 mirrorlist_protocol=http
