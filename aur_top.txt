@@ -1,11 +1,11 @@
-20.01.2020
+01.02.2020
 yay
 octopi
 alpm_octopi_utils
 octopi-dev
 spotify
+google-chrome
 tor-browser
 brave-bin
-google-chrome
-minecraft-launcher
-polybar
+godot
+joplin
