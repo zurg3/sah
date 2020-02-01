@@ -374,16 +374,17 @@ elif [[ $1 == "top" ]]; then
   wget -q $aur_top_url -O $aur_top_path
   readarray -t aur_top < $aur_top_path
   aur_top_date=${aur_top[0]}
+  aur_top_time=${aur_top[1]}
   if [[ $2 == "" ]]; then
     aur_top_num=1
-    echo "TOP-10 popular AUR packages (updated on $aur_top_date):"
-    for (( i = 1; i < 11; i++ )); do
+    echo "TOP-10 popular AUR packages (updated on $aur_top_date at $aur_top_time UTC):"
+    for (( i = 2; i < 12; i++ )); do
       echo "$aur_top_num. ${aur_top[$i]}"
       aur_top_num=$(($aur_top_num + 1))
     done
   elif [[ $2 != "" ]]; then
     if (( $2 >= 1 && $2 <= 10 )); then
-      aur_top_install=$2
+      aur_top_install=$(($2 + 1))
       aur_pkg=${aur_top[$aur_top_install]}
       git clone https://aur.archlinux.org/$aur_pkg.git
       if [[ $auto_cache_check == "true" ]]; then
