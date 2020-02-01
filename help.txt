@@ -1,6 +1,6 @@
 Simple AUR Helper (SAH) and Pacman wrapper
 
-Version: 0.8.2
+Version: 0.9
 Author: zurg3 (Stepan Skryabin)
 Created: 12.02.2019
 License: GNU GPL v3

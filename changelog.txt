@@ -1,3 +1,11 @@
+v0.9 (01.02.2020)
+- Added cache for AUR packages
+- Added optional auto caching for AUR packages
+- Added a feature to view PKGBUILD of AUR packages
+- Added config option to select text viewer
+- Removed logging
+- Updated AUR TOP-10 packages
+
 v0.8.2 (10.12.2019)
 - Added a feature to browse packages from Arch Linux website via web browser
 - Updated AUR TOP-10 packages
