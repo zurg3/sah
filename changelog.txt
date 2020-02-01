@@ -1,3 +1,6 @@
+v0.9.1 (01.02.2020)
+- Added showing time of AUR TOP-10 packages update
+
 v0.9 (01.02.2020)
 - Added cache for AUR packages
 - Added optional auto caching for AUR packages
