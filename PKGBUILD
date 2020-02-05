@@ -1,4 +1,4 @@
-# Maintainer: zurg3 <https://t.me/zurg3channel>
+# Maintainer: zurg3 <zurg3mail@mail.ru>
 pkgname=sah
 pkgver=0.9.1
 pkgrel=1
