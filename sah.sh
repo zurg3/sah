@@ -16,7 +16,6 @@ pacman_config_path="/etc/pacman.conf"
 mirrorlist_path="/etc/pacman.d/mirrorlist"
 SAH_help_path="/usr/share/sah/help"
 SAH_changelog_path="/usr/share/sah/changelog"
-aur_top_url="https://raw.githubusercontent.com/zurg3/sah/dev/aur_top.txt"
 aur_top_path="/tmp/aur_top"
 
 kernel_version=$(uname -r)
@@ -371,7 +370,13 @@ elif [[ $1 == "changelog" ]]; then
   $SAH_viewer $SAH_changelog_path
 # SAH AUR TOP Packages
 elif [[ $1 == "top" ]]; then
-  wget -q $aur_top_url -O $aur_top_path
+  wget -q https://aur.archlinux.org/packages -O - | sed -n "/<table class=\"results\">/,/<\/table>/p" > /tmp/aur_packages.html
+  date -u +"%d.%m.%Y" > $aur_top_path
+  date -u +"%H:%M" >> $aur_top_path
+  for (( i = 1; i <= 10; i++ )); do
+    xmllint --xpath "//table//tbody//tr[$i]//td[1]//a/text()" /tmp/aur_packages.html >> $aur_top_path
+  done
+
   readarray -t aur_top < $aur_top_path
   aur_top_date=${aur_top[0]}
   aur_top_time=${aur_top[1]}
