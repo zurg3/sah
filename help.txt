@@ -18,6 +18,7 @@ Dependencies (most of them installed by default):
 - bash-completion
 - curl
 - sed
+- libxml2
 
 Optional dependencies:
 - vim - an alternative editor to edit configs

@@ -6,7 +6,7 @@ pkgdesc="Simple AUR Helper (SAH) and Pacman wrapper"
 arch=('any')
 url="https://github.com/zurg3/sah"
 license=('GPLv3')
-depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less' 'nano' 'bash-completion' 'curl' 'sed')
+depends=('bash' 'sudo' 'pacman' 'coreutils' 'git' 'wget' 'grep' 'less' 'nano' 'bash-completion' 'curl' 'sed' 'libxml2')
 optdepends=('vim: an alternative editor to edit configs'
             'firefox: to browse packages from Arch Linux website'
             'bat: an alternative text viewer to view text files')
