@@ -363,7 +363,7 @@ elif [[ $1 == "mirrorlist" ]]; then
   sudo $SAH_editor $mirrorlist_path
 # SAH Pacman Update Mirrors
 elif [[ $1 == "updatemirrors" ]]; then
-  sudo curl -s "https://www.archlinux.org/mirrorlist/?country=$mirrorlist_country&protocol=$mirrorlist_protocol&ip_version=$mirrorlist_ip_version" -o $mirrorlist_path
+  sudo curl -s "https://archlinux.org/mirrorlist/?country=$mirrorlist_country&protocol=$mirrorlist_protocol&ip_version=$mirrorlist_ip_version" -o $mirrorlist_path
   sudo $SAH_editor $mirrorlist_path
 # SAH Changelog
 elif [[ $1 == "changelog" ]]; then
@@ -492,7 +492,7 @@ elif [[ $1 == "browse" ]]; then
     elif [[ $2 != "" ]]; then
       if [[ $3 == "" ]]; then
         if [[ $2 == "--pacman" ]]; then
-          $SAH_browser https://www.archlinux.org/packages/
+          $SAH_browser https://archlinux.org/packages/
         elif [[ $2 == "--aur" ]]; then
           $SAH_browser https://aur.archlinux.org/packages/
         else
@@ -500,7 +500,7 @@ elif [[ $1 == "browse" ]]; then
         fi
       elif [[ $3 != "" ]]; then
         if [[ $2 == "--pacman" ]]; then
-          $SAH_browser https://www.archlinux.org/packages/?q=$3
+          $SAH_browser https://archlinux.org/packages/?q=$3
         elif [[ $2 == "--aur" ]]; then
           $SAH_browser https://aur.archlinux.org/packages/$3
         else

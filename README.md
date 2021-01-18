@@ -15,24 +15,24 @@
 - If this repository will get at least 20 stars, I'll add the PKGBUILD to AUR.
 
 ## Dependencies (most of them installed by default):
-- [bash](https://www.archlinux.org/packages/core/x86_64/bash/)
-- [sudo](https://www.archlinux.org/packages/core/x86_64/sudo/)
-- [pacman](https://www.archlinux.org/packages/core/x86_64/pacman/)
-- [coreutils](https://www.archlinux.org/packages/core/x86_64/coreutils/)
-- [git](https://www.archlinux.org/packages/extra/x86_64/git/)
-- [wget](https://www.archlinux.org/packages/extra/x86_64/wget/)
-- [grep](https://www.archlinux.org/packages/core/x86_64/grep/)
-- [less](https://www.archlinux.org/packages/core/x86_64/less/)
-- [nano](https://www.archlinux.org/packages/core/x86_64/nano/)
-- [bash-completion](https://www.archlinux.org/packages/extra/any/bash-completion/)
-- [curl](https://www.archlinux.org/packages/core/x86_64/curl/)
-- [sed](https://www.archlinux.org/packages/core/x86_64/sed/)
-- [libxml2](https://www.archlinux.org/packages/extra/x86_64/libxml2/)
+- [bash](https://archlinux.org/packages/core/x86_64/bash/)
+- [sudo](https://archlinux.org/packages/core/x86_64/sudo/)
+- [pacman](https://archlinux.org/packages/core/x86_64/pacman/)
+- [coreutils](https://archlinux.org/packages/core/x86_64/coreutils/)
+- [git](https://archlinux.org/packages/extra/x86_64/git/)
+- [wget](https://archlinux.org/packages/extra/x86_64/wget/)
+- [grep](https://archlinux.org/packages/core/x86_64/grep/)
+- [less](https://archlinux.org/packages/core/x86_64/less/)
+- [nano](https://archlinux.org/packages/core/x86_64/nano/)
+- [bash-completion](https://archlinux.org/packages/extra/any/bash-completion/)
+- [curl](https://archlinux.org/packages/core/x86_64/curl/)
+- [sed](https://archlinux.org/packages/core/x86_64/sed/)
+- [libxml2](https://archlinux.org/packages/extra/x86_64/libxml2/)
 
 ## Optional dependencies:
-- [vim](https://www.archlinux.org/packages/extra/x86_64/vim/) - *an alternative editor to edit configs*
-- [firefox](https://www.archlinux.org/packages/extra/x86_64/firefox/) - *to browse packages from Arch Linux website*
-- [bat](https://www.archlinux.org/packages/community/x86_64/bat/) - *an alternative text viewer to view text files*
+- [vim](https://archlinux.org/packages/extra/x86_64/vim/) - *an alternative editor to edit configs*
+- [firefox](https://archlinux.org/packages/extra/x86_64/firefox/) - *to browse packages from Arch Linux website*
+- [bat](https://archlinux.org/packages/community/x86_64/bat/) - *an alternative text viewer to view text files*
 
 ## Installation:
 ```
