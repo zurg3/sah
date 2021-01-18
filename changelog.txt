@@ -1,3 +1,6 @@
+v0.9.3 (18.01.2021)
+- Updated links to Arch Linux website
+
 v0.9.2 (05.09.2020)
 - Changed way of getting AUR TOP-10 packages
 
