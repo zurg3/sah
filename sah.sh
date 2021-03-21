@@ -300,6 +300,9 @@ elif [[ $1 == "-R" || $1 == "remove" ]]; then
 # SAH Remove With Dependencies
 elif [[ $1 == "-Rs" || $1 == "purge" ]]; then
   sudo pacman -Rs ${@:2}
+# SAH Remove Orphans
+elif [[ $1 == "-Ro" ]]; then
+  sudo pacman -R $(sudo pacman -Qdtq)
 # SAH Installed All
 elif [[ $1 == "-Q" || $1 == "list" ]]; then
   query_pkg_count=$(sudo pacman -Q | wc -l)

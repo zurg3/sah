@@ -180,6 +180,11 @@ Remove package/packages with dependencies which aren't required by any other ins
 $ sah -Rs [package1] [package2] ...
 ```
 
+Remove packages-orphans
+```
+$ sah -Ro
+```
+
 Show installed packages (All)
 ```
 $ sah -Q
