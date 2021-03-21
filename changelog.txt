@@ -1,3 +1,6 @@
+v0.9.4 (21.03.2021)
+- Added a feature to remove packages-orphans
+
 v0.9.3 (18.01.2021)
 - Updated links to Arch Linux website
 
