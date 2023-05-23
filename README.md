@@ -27,7 +27,7 @@
 - [bash-completion](https://archlinux.org/packages/extra/any/bash-completion/)
 - [curl](https://archlinux.org/packages/core/x86_64/curl/)
 - [sed](https://archlinux.org/packages/core/x86_64/sed/)
-- [libxml2](https://archlinux.org/packages/extra/x86_64/libxml2/)
+- [libxml2](https://archlinux.org/packages/core/x86_64/libxml2/)
 
 ## Optional dependencies:
 - [vim](https://archlinux.org/packages/extra/x86_64/vim/) - *an alternative editor to edit configs*
